@@ -6,12 +6,40 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      
       >
+    <h:body>
+    	
+    	<ui:composition template="/template/common/commonLayout.xhtml">
+    		<!-- Thay ten trang tuong ung -->
+    		<ui:define name="title">
+    			Demo Ck Editor
+    		</ui:define>
+    	
+    		<ui:define name="content">
+    		<!-- xoa phan phan khung duoi di, thay vao noi dung tuong ung. -->
+    		<!-- =================================================================================================-->
+    			
+    			<div class="row">
+            		<div class="col-md-12 col-sm-12 col-xs-12">
+                            
+                            <br/>
+                            <h:inputText required="false" value="#{text='test vl'}" id="txthidden" styleClass="form-control " />
+                            <br/>
+                            <textarea class="form-control col-md-7 col-xs-12" rows="4" cols="20" id="texteditor" name="texteditor">
+                                <h:outputText value="#{text}"/>
+                            </textarea>
+                            
+                            
 
-<h:head></h:head> 
-<h:body> 
-	<h:outputText value = " đây là jsf - spring boot" />
-	<br/>
-	 2 hello world x
-</h:body> 
+                             
+            		</div>
+                    
+            	</div>
+        	
+            <!-- =================================================================================================-->	
+    		</ui:define>
+		</ui:composition>
+    </h:body>
+
 </html>

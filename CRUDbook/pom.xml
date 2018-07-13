@@ -23,8 +23,50 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
+	
 	<dependencies>
+	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		
+			<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.18.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -73,11 +115,20 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>2.2.9</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.jtds/jtds -->
+		<dependency>
+		    <groupId>net.sourceforge.jtds</groupId>
+		    <artifactId>jtds</artifactId>
+		    <version>1.3.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.11</version>
+		    <version>5.1.38</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.sun.facelets/jsf-facelets -->
 		<dependency>
 		    <groupId>com.sun.facelets</groupId>
@@ -117,11 +168,12 @@
 		    <version>4.0.5.Final</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>4.3.1.Final</version>
-		</dependency>
+		    <dependency>
+		      <groupId>org.hibernate</groupId>
+		      <artifactId>hibernate-core</artifactId>
+		      <version>5.0.11.Final</version>
+		      <scope>compile</scope>
+		    </dependency>
 
 			<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
@@ -138,16 +190,7 @@
 		</dependency>
 		<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 		
-		<dependency>
-		    <groupId>org.apache.myfaces.core</groupId>
-		    <artifactId>myfaces-impl</artifactId>
-		    <version>2.2.12</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.apache.myfaces.core</groupId>
-		    <artifactId>myfaces-api</artifactId>
-		    <version>2.2.12</version>
-		</dependency>
+		
 		
 	</dependencies>
 
