@@ -1,15 +1,11 @@
 package com.xamthien.DAO;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import com.xamthien.DAO.ModelDAO;
 import com.xamthien.model.Sach;
-
-
+import com.xamthien.model.TacGia;
+import com.xamthien.service.SachService;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -20,11 +16,26 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 /**
  *
- * @author dangt
+ * @author xamthien
  */
 @Repository("sachDao")
-public class SachDAO {
-
+public class SachDAO extends ModelDAO {
+	Session session;
+	
+//    @SuppressWarnings("unchecked")
+//    public List<Sach> getAllSach() {
+//        List<Sach> list = null;
+//        try {
+//        	session = getSession();
+//            String hql = "from Sach";
+//            Query que = session.createQuery(hql);
+//            list = que.list();
+//            //transaction.commit();
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
     @SuppressWarnings("unchecked")
     public List<Sach> getAllSach() {
         List<Sach> list = null;
@@ -48,16 +59,11 @@ public class SachDAO {
     public Sach getSachByID(int id) {
     	 Sach bk = null;
          try {
-             Configuration configuration = new Configuration().configure();
-             SessionFactory sessionFactory = configuration.buildSessionFactory();
-             Session session = sessionFactory.openSession();
-
-             //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-             Transaction transaction = session.beginTransaction();
+        	 session = getSession();
              String hql = "from Sach where id = "+id;
              Query que = session.createQuery(hql);
              bk = (Sach)que.uniqueResult();
-             transaction.commit();
+             //transaction.commit();
          } catch (HibernateException e) {
              e.printStackTrace();
          }
@@ -65,35 +71,33 @@ public class SachDAO {
     }
 
     public void insertSacht(Sach sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.save(sp);
-        transaction.commit();
+        
+        //transaction.commit();
         //session.close();
     }
 
     
     public void updateSach(Sach sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.update(sp);
-        transaction.commit();
+        //transaction.commit();
         //session.close();
     }
     public void deleteSach(Sach sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.delete(sp);
-        transaction.commit();
+        //transaction.commit();
         //session.close();
     }
    
-    
-
+//    public static void main(String[] args) {
+//		List<Sach> lst = new SachDAO().getAllSach();
+//		for(Sach bk :lst)
+//		{
+//			System.out.println(bk.getName());
+//		}
+//		
+//	}
 }

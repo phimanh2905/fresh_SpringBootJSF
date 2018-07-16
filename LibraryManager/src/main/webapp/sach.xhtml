@@ -128,40 +128,40 @@
 				                <a href=""></a>
 				                <div class="clearfix"></div>
 				                <div class="col-sm-12">
-				                	<h:dataTable id= "datatable" styleClass="table table-striped table-bordered dataTable no-footer" var="prr" value="#{projects_bean.lst}" >
+				                	<h:dataTable id= "datatable" styleClass="table table-striped table-bordered dataTable no-footer" var="bk" value="#{sachbean.getLst()}" >
 									  		<h:column>
 												<f:facet name="header">
 													<!-- <h:outputText value="Mã"/> -->
 													<span style="text-align: center;" class="glyphicon glyphicon-file" aria-hidden="true"></span>
 												</f:facet>
-												<a href="#" onclick="project_pass_update(#{prr.projectId},'#{prr.projectCode}','#{prr.projectName}','#{prr.description}',#{prr.masterDatas.masterDataId})" data-toggle="modal" data-target="#modal-edit">
+												<a href="#" onclick="project_pass_update(#{bk.id},'#{bk.name}',#{bk.tacGia.id},#{bk.quantity})" data-toggle="modal" data-target="#modal-edit">
 											    		<i class="fa fa-edit"></i></a>
-											    <a href="#" onclick="project_pass_del(#{prr.projectId})" data-toggle="modal" data-target="#modal-delete">
+											    <a href="#" onclick="project_pass_del(#{bk.id})" data-toggle="modal" data-target="#modal-delete">
 											    		<i class="fa fa-trash"></i></a>
 											</h:column>
 											<h:column>
 												<f:facet name="header">
 													<h:outputText value="Mã sách"/>
 												</f:facet>
-												<h:outputText value="#{prr.projectCode}"/>
+												<h:outputText value="#{bk.id}"/>
 											</h:column>
 											<h:column>
 												<f:facet name="header">
 													<h:outputText value="Tên sách"/>
 												</f:facet>
-												<h:outputText value="#{prr.projectName}"/>
+												<h:outputText value="#{bk.name}"/>
 											</h:column>
 											<h:column>
 												<f:facet name="header">
 													<h:outputText value="Tác giả"/>
 												</f:facet>
-												<h:outputText value="#{prr.description}"/>
+												<h:outputText value="#{bk.tacGia.name}"/>
 											</h:column>
 											<h:column>
 												<f:facet name="header">
 													<h:outputText value="Số lượng"/>
 												</f:facet>
-												<h:outputText value="#{prr.masterDatas.masterDataCode}"/>
+												<h:outputText value="#{bk.quantity}"/>
 											</h:column>
 											
 									  

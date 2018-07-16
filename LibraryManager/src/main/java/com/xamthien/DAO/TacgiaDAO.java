@@ -1,16 +1,8 @@
 package com.xamthien.DAO;
 
-
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import com.xamthien.model.TacGia;
-
-
-
+import com.xamthien.model.Sach;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -19,7 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 /**
  *
- * @author dangt
+ * @author xamthiens
  */
 public class TacgiaDAO {
 
@@ -91,7 +83,13 @@ public class TacgiaDAO {
         transaction.commit();
         //session.close();
     }
-   
+   public static void main(String[] args) {
+	List<TacGia> lst = new TacgiaDAO().getAllTacGia();
+	for(TacGia tg:lst)
+	{
+		System.out.println(tg.getName());
+	}
+}
    
 
 }
