@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+	    <ui:composition>
+	   
+			<div class="col-md-3 left_col">
+	          <div class="left_col scroll-view">
+	            <div class="navbar nav_title" style="border: 0;">
+	              
+	              <h:graphicImage name="production/images/logo2.png" styleClass="site_title"/>
+	              
+	            </div>
+	
+	            <div class="clearfix"></div>
+	
+	         
+	
+	            <br />
+	
+	            <!-- sidebar menu -->
+	            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+	              <div class="menu_section">
+	                <h3><strong>Functions</strong></h3>
+	                <ul class="nav side-menu">
+	                  <li><a><i class="fa fa-folder-open"></i>Quản lý sách <span class="fa fa-chevron-down"></span></a>
+	                    <ul class="nav child_menu">
+			      		  <li><a href="${pageContext.request.contextPath}/sach.xhtml">Sách</a></li>
+	           		      
+	           		      
+	                    </ul>
+	                  </li>
+	                  <li><a><i class="fa fa-folder-open"></i> Quản lý tác giả <span class="fa fa-chevron-down"></span></a>
+	                    <ul class="nav child_menu">
+	                      <li><a href="${pageContext.request.contextPath}/tacgia.xhtml">Tác giả</a></li>
+	                    </ul>
+	                  </li>
+	                </ul>
+	              </div>
+	              
+	
+	            </div>
+	            <!-- /sidebar menu -->
+	
+	            <!-- /menu footer buttons 
+	            <div class="sidebar-footer hidden-small">
+	              <a data-toggle="tooltip" data-placement="top" title="Settings">
+	                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+	              </a>
+	              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+	                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+	              </a>
+	              <a data-toggle="tooltip" data-placement="top" title="Lock">
+	                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+	              </a>
+	              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+	                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+	              </a>
+	            </div>
+	            -->
+	          </div>
+	        </div>
+	
+	    </ui:composition>
+    
+</html>

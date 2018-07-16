@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      
+      >
+    <h:body>
+    	
+    	<ui:composition template="template/common/commonLayout.xhtml">
+    		<!-- Thay ten trang tuong ung -->
+    		<ui:define name="title">
+    			Create/Edit Book
+    		</ui:define>
+    	
+    		<ui:define name="content">
+    		<!-- xoa phan phan khung duoi di, thay vao noi dung tuong ung. -->
+    		<!-- =================================================================================================-->
+    			
+    		<div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+              	<h2><strong>Create/Edit Book</strong></h2>
+              	<hr/>
+              	<!-- search-->
+              	<!--  
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Search</h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  	
+			        <div class="container">
+			            <h:form id="form">
+			            	<div class="row">
+
+				                <div class='col-sm-4'>
+				                    Project code:
+				                    <div class="form-group">
+				                        <div class="form-group">
+				                            
+				                            <h:inputText id="code" styleClass="form-control" value="#{projects_bean.code}" />
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+
+				                <div class='col-sm-4'>
+				                    Project name:
+				                    <div class="form-group">
+				                        <div class="form-group" >
+				                            <h:inputText id="name" styleClass="form-control" value="#{projects_bean.name}" />
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+				                
+				                 <div class='col-sm-4'>
+				                    Status:
+				                    <div class="form-group">
+				                        <div class="form-group" >
+											<h:selectOneMenu id="yyy" styleClass="form-control" value = "#{projects_bean.status}"> 
+									            <f:selectItem itemValue = "0" itemLabel = "-[Select]-" /> 
+									            <f:selectItem itemValue = "744" itemLabel = "Active" /> 
+									            <f:selectItem itemValue = "745" itemLabel = "Inactive" /> 
+									            <f:selectItem itemValue = "746" itemLabel = "Close" /> 
+									            
+									         </h:selectOneMenu>  
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+
+				                <div class="clearfix"></div>
+				                <div class='col-sm-4'>
+				                    
+				                    <h:commandButton styleClass="btn btn-primary" action="#{projects_bean.search()}" value="Search" >
+				                    	<f:ajax execute=" code name yyy" render=":datatable"></f:ajax>
+				                    </h:commandButton>
+				                    <h:commandButton styleClass="btn btn-primary" action="#{projects_bean.showAll()}" value="Show All" />
+				                    <button type="reset" class="btn btn-primary">Reset</button>
+									
+				                </div>
+				                
+				                 
+				            </div>
+			            </h:form>
+			        </div>
+			        
+			        
+			    </div>
+                </div>
+                -->
+                <!-- show table-->
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>List Book</h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  	<!-- search-->
+			        <div class="container">
+			            
+			            	<div class="row">
+				                <!--<div style="padding-top: 6px;">
+				                	<div class='col-sm-4' style="padding-top: 5px;">
+					                    <label class="control-label">Drag a column to this area to group:</label>
+					                </div>
+					                
+					                <div class="col-sm-4 float-right" >
+					                    
+					                    <div class='col-sm-4' >
+					                    	<label class="control-label float-right" >Search:</label>
+					                    </div>
+					                    <div class='col-sm-8'>
+					                    	 <div class="form-group" >
+						                        <h:inputText styleClass="form-control" id="txtSearch" onkeyup="searchTable()" />
+						                    </div>
+					                    </div>
+					                   
+					                </div> 
+				                </div>-->
+				                <a href=""></a>
+				                <div class="clearfix"></div>
+				                <div class="col-sm-12">
+				                	<h:dataTable id= "datatable" styleClass="table table-striped table-bordered dataTable no-footer" var="prr" value="#{projects_bean.lst}" >
+									  		<h:column>
+												<f:facet name="header">
+													<!-- <h:outputText value="Mã"/> -->
+													<span style="text-align: center;" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+												</f:facet>
+												<a href="#" onclick="project_pass_update(#{prr.projectId},'#{prr.projectCode}','#{prr.projectName}','#{prr.description}',#{prr.masterDatas.masterDataId})" data-toggle="modal" data-target="#modal-edit">
+											    		<i class="fa fa-edit"></i></a>
+											    <a href="#" onclick="project_pass_del(#{prr.projectId})" data-toggle="modal" data-target="#modal-delete">
+											    		<i class="fa fa-trash"></i></a>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Mã sách"/>
+												</f:facet>
+												<h:outputText value="#{prr.projectCode}"/>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Tên sách"/>
+												</f:facet>
+												<h:outputText value="#{prr.projectName}"/>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Tác giả"/>
+												</f:facet>
+												<h:outputText value="#{prr.description}"/>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Số lượng"/>
+												</f:facet>
+												<h:outputText value="#{prr.masterDatas.masterDataCode}"/>
+											</h:column>
+											
+									  
+									</h:dataTable>
+				                </div>
+				                <div class="clearfix"></div>
+				                
+
+						        <div class="ln_solid"></div>
+						        <div class="col-sm-12 " >
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add">Add New</button>
+
+								</div>
+				            </div>
+			            
+			        </div>
+			        
+			        
+			    </div>
+                </div>
+                <div class="x_panel">
+                	
+                	
+                </div>
+              </div>
+            </div>
+            <!-- Add new modal -->
+            <div class="modal fade bs-example-modal-lg" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-delete">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Thêm mới sách: </h4>
+                        </div>
+                        <h:form>
+                        <div class="modal-body">
+                          	 
+			                 <div class='col-sm-12'>
+				                    <label >Tên sách :</label>
+				                    <div class="form-group">
+				                        <div class="form-group" >
+				                            <h:inputText styleClass="form-control" value="#{name}" />
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+			                 <div class='col-sm-12'>
+				                <div class="form-group">
+					                <label >Tác giả :</label>
+					                <h:selectOneMenu id="xxx" styleClass="form-control" value = "#{tg}"> 
+									            
+									            <f:selectItem itemValue = "1" itemLabel = "tg1" /> 
+									            <f:selectItem itemValue = "2" itemLabel = "tg2" /> 
+									            <f:selectItem itemValue = "3" itemLabel = "tg3" /> 
+									            
+									</h:selectOneMenu>  
+				                            
+				                </div>
+			                 </div>
+			                 <div class='col-sm-12'>
+				                    <label >Số lượng :</label>
+				                    <div class="form-group">
+				                        <div class="form-group" >
+				                            <h:inputText styleClass="form-control" value="#{sl}" />
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="reset" class="btn btn-info">Reset </button>
+                          <h:commandButton styleClass="btn btn-primary" action="#{projects_bean.insert(name,tg,sl)}" value="Save" />
+                        </div>
+                    	</h:form>
+                      </div>
+                    </div>
+            </div>
+			<!--  Add new  modal -->
+
+			<!-- Edit modal -->
+            <div class="modal fade bs-example-modal-lg" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-delete">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Edit Project :</h4>
+                        </div>
+                        <h:form>
+                        <div class="modal-body">
+                        	<div class="hd_id">
+                        		<h:inputHidden id="#{'hd_id'}" styleClass="form-control" value="#{eid}" />
+                        	</div>
+                          
+			                 <div class='col-sm-12'>
+				                    <label >Tên sách :</label>
+				                    <div class="form-group">
+				                        <div class="form-group name" >
+				                            <h:inputText id="name" styleClass="form-control" value="#{ename}" />
+				                            
+				                        </div>
+				                    </div>
+				                </div>
+			                 <div class='col-sm-12'>
+				                <div class="form-group author">
+					                <label >Tác giả :</label>
+					                <h:selectOneMenu id="author" styleClass="form-control" value = "#{eauthor}"> 
+									            
+									            <f:selectItem itemValue = "1" itemLabel = "Tg1" /> 
+									            <f:selectItem itemValue = "2" itemLabel = "Tg2" /> 
+									            <f:selectItem itemValue = "3" itemLabel = "Tg3" /> 
+									            
+									</h:selectOneMenu>  
+				                            
+				                </div>
+			                 </div>
+			                 <div class='col-sm-12'>
+				                    <label >Số lượng :</label>
+				                    <div class="form-group">
+				                        <div class="form-group quantity" >
+				                            <h:inputText id="quantity" styleClass="form-control" value="#{equantity}" />
+				                        </div>
+				                    </div>
+				                </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="reset" class="btn btn-info">Reset </button>
+                          <h:commandButton styleClass="btn btn-primary" action="#{projects_bean.update(eid,ename,eauthor,equantity)}" value="Save" />
+                        </div>
+                    	</h:form>
+                      </div>
+                    </div>
+            </div>
+			<!--  Edit modal -->
+			<!-- Delete modal -->
+            <div class="modal fade bs-example-modal-lg" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-delete">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Confirm:</h4>
+                        </div>
+                        
+                        <div class="modal-footer">
+                        	<h:form>
+                        		<div class="delete">
+                        			<h:inputHidden id="txtid" value="#{txtidx}" />
+                        		</div>
+                          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                          
+                          		<h:commandButton styleClass="btn btn-primary" action="#{projects_bean.delete(txtidx)}" value="Delete" />
+                          </h:form>
+                        </div>
+
+                      </div>
+                    </div>
+            </div>
+			<!--  Delete modal -->
+
+        	<script type="text/javascript">
+			    function project_pass_del(id) {
+			    	document.querySelector(".delete input").value = id; 
+			    };
+			    function project_pass_update(id,name,author,quantity) {
+			    	document.querySelector(".hd_id input").value = id; 
+			    	
+			    	document.querySelector(".name input").value = name; 
+			    	document.querySelector(".quantity input").value = quantity; 
+			    	document.querySelector(".author select").value = author; 
+			    };
+			    
+			</script>
+            <!-- =================================================================================================-->	
+    		</ui:define>
+		</ui:composition>
+	
+    </h:body>
+
+</html>
