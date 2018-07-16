@@ -1,0 +1,8 @@
+﻿1: com.thienhoang.ehrm.bean ->EmployeeContractBean
+2: com.thienhoang.ehrm.service.interfaces->interface: EmployeeContractService
+3: com.thienhoang.ehrm.service->impl: EmployeeContractServiceImp
+4: com.thienhoang.ehrm.dao.interfaces->interface: EmployeeContractDAO
+5: com.thienhoang.ehrm.dao->EmployeeContractDAOImp
+=============================================
+1:  gộp 4 và 5
+2 : gộp 2 và 3
