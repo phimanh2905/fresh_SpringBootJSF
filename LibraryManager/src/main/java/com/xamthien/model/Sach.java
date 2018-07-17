@@ -18,10 +18,10 @@ import javax.persistence.Table;
 @Table(name = "SACH", catalog = "less1")
 public class Sach implements java.io.Serializable {
 
-	private Integer id;
-	private TacGia tacGia;
-	private String name;
-	private int quantity;
+	public int id;
+	public TacGia tacGia;
+	public String name;
+	public int quantity;
 
 	public Sach() {
 	}

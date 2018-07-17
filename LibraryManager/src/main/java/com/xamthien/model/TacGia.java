@@ -19,10 +19,10 @@ import javax.persistence.Table;
 @Table(name = "TAC_GIA", catalog = "less1")
 public class TacGia implements java.io.Serializable {
 
-	private Integer id;
-	private String name;
-	private String phone;
-	private Set<Sach> saches = new HashSet<Sach>(0);
+	public Integer id;
+	public String name;
+	public String phone;
+	public Set<Sach> saches = new HashSet<Sach>(0);
 
 	public TacGia() {
 	}

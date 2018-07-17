@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot - Hibernate</title>
+</head>
+<body>
+	<a th:href="@{/sach}">List Book</a> 
+	<br/> <br/>
+	
+	<table>
+		<tr>
+			<td>Id: </td>
+			<td><p th:text="${sach.id}"/></td>
+		</tr>
+		<tr>
+			<td>Name: </td>
+			<td><p th:text="${sach.name}"/></td>
+		</tr>
+		<tr>
+			<td>Quantity: </td>
+			<td><p th:text="${sach.quantity}"/></td>
+		</tr>
+		<tr>
+			<td>Author: </td>
+			<!-- 
+			<td><p th:text="${sach.tacGia.name}"/></td>
+			 -->
+		</tr>
+	</table>
+</body>
+</html>

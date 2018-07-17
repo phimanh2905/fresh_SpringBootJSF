@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot - Hibernate</title>
+<style>
+table, th, td, tr {
+	border: 1px solid black;
+}
+
+td {
+	padding-right: 30px;
+}
+</style>
+</head>
+<body>
+	<h1>List Book:</h1>
+	<a th:href="@{/sach-save}">Add Book</a>
+	<br />
+	<br />
+
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Quantity</th>
+			<th>Author</th>
+			<th>View</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+		<th:block th:each="bk : ${listSach}">
+			<tr>
+				<td><p th:text="${bk.id.toString()}"></p></td>
+				<td><p th:text="${bk.name}"></p></td>
+				<td><p th:text="${bk.quantity}"></p></td>
+				<td><p th:text="${bk.tacGia.name}"></p></td>
+				<td><a th:href="@{/sach-view/} + ${bk.id}">View</a></td>
+				<td><a th:href="@{/sach-update/} + ${bk.id}">Edit</a></td>
+				<td><a th:href="@{/sachDelete/} + ${bk.id}">Delete</a></td>
+			</tr>
+		</th:block>
+	</table>
+
+</body>
+</html>
