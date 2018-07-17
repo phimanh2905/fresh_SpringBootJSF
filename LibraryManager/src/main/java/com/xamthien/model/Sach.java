@@ -24,6 +24,7 @@ public class Sach implements java.io.Serializable {
 	public int quantity;
 
 	public Sach() {
+		this.quantity=1;
 	}
 
 	public Sach(TacGia tacGia, String name, int quantity) {

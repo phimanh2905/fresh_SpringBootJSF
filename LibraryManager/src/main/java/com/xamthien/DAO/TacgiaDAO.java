@@ -9,45 +9,32 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author xamthiens
  */
-public class TacgiaDAO {
-
+@Repository("tacgiaDao")
+@Transactional(rollbackFor = Exception.class)
+public class TacgiaDAO extends ModelDAO {
+	Session session;
+	
     @SuppressWarnings("unchecked")
     public List<TacGia> getAllTacGia() {
-        List<TacGia> list = null;
-        try {
-            Configuration configuration = new Configuration().configure();
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
-            Session session = sessionFactory.openSession();
-
-            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            Transaction transaction = session.beginTransaction();
-            String hql = "from TacGia";
-            Query que = session.createQuery(hql);
-            list = que.list();
-            transaction.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }
-        return list;
+    	String hql = "FROM TacGia";
+    	session = getSession();
+		Query que = session.createQuery(hql);
+        return que.list();
     }
 
     public TacGia getTacGiaByID(int id) {
     	 TacGia bk = null;
-         try {
-             Configuration configuration = new Configuration().configure();
-             SessionFactory sessionFactory = configuration.buildSessionFactory();
-             Session session = sessionFactory.openSession();
-
-             //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-             Transaction transaction = session.beginTransaction();
+    	 try {
+        	 session = getSession();
              String hql = "from TacGia where id = "+id;
              Query que = session.createQuery(hql);
              bk = (TacGia)que.uniqueResult();
-             transaction.commit();
          } catch (HibernateException e) {
              e.printStackTrace();
          }
@@ -55,41 +42,20 @@ public class TacgiaDAO {
     }
 
     public void insertTacGiat(TacGia sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.save(sp);
-        transaction.commit();
-        //session.close();
     }
 
     
     public void updateTacGia(TacGia sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.update(sp);
-        transaction.commit();
-        //session.close();
     }
     public void deleteTacGia(TacGia sp) {
-        Configuration configuration = new Configuration().configure();
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+    	session = getSession();
         session.delete(sp);
-        transaction.commit();
-        //session.close();
     }
-   public static void main(String[] args) {
-	List<TacGia> lst = new TacgiaDAO().getAllTacGia();
-	for(TacGia tg:lst)
-	{
-		System.out.println(tg.getName());
-	}
-}
+
    
 
 }

@@ -1,23 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Spring Boot - Hibernate</title>
-<style>
-table, th, td, tr {
-	border: 1px solid black;
-}
-
-td {
-	padding-right: 30px;
-}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<h1>List Book:</h1>
-	<a th:href="@{/sach-save}">Add Book</a>
+	<button type="button" class="btn btn-info " data-toggle="modal" data-target="#modal-add">Thêm sách</button>
+	
+	
 	<br />
+	<font style="color:red;"><i><span th:text="${msg}"></span></i></font>
 	<br />
 
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<th>Id</th>
 			<th>Name</th>
@@ -33,12 +32,240 @@ td {
 				<td><p th:text="${bk.name}"></p></td>
 				<td><p th:text="${bk.quantity}"></p></td>
 				<td><p th:text="${bk.tacGia.name}"></p></td>
-				<td><a th:href="@{/sach-view/} + ${bk.id}">View</a></td>
-				<td><a th:href="@{/sach-update/} + ${bk.id}">Edit</a></td>
-				<td><a th:href="@{/sachDelete/} + ${bk.id}">Delete</a></td>
+				
+				<td><a href="#" data-toggle="modal" data-target="#modal-view" th:onclick="'pass_view('+${bk.id}+',\'' + ${bk.name} + '\',\''+${bk.tacGia.name}+'\','+${bk.quantity}+');'">View</a></td>
+				<td><a href="#" data-toggle="modal" data-target="#modal-edit" th:onclick="'pass_edit('+${bk.id}+',\'' + ${bk.name} + '\',\''+${bk.tacGia.id}+'\','+${bk.quantity}+');'">Edit</a></td>
+				<td><a href="#" data-toggle="modal" data-target="#modal-del" th:onclick="'pass_del('+${bk.id}+');'">Delete</a></td>
 			</tr>
 		</th:block>
 	</table>
-
+	<!-- modal add-->
+	  <div class="modal fade" id="modal-add" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Thêm mới sách:</h4>
+	        </div>
+	        <form th:action="@{/saveSach}" method="POST" th:object="${sach}">
+		        <div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >Name :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" th:field="*{name}" required="required"/>
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Quantity :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" type="number" min="1" th:field="*{quantity}" required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Author :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <select class="form-control" th:field="*{tacGia.id}">
+					                         <option  th:each="author : ${listTacgia}"
+					                            th:value="${author.id}"
+					                            th:utext="${author.name}"/>
+					        				</select>
+					                </div>
+					          </div>
+					</div>
+					
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  <!-- end modal add -->
+	<!-- modal view-->
+	  <div class="modal fade" id="modal-view" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Thông tin sách:</h4>
+	        </div>
+	        	<div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >Id :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="vid" class="form-control"  readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+					</div>
+		        <div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >Name :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="vname" class="form-control" readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Quantity :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="vquantity" class="form-control" type="number" min="1"  readonly="readonly" />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Author :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                	<input id="vauthor" class="form-control"  readonly="readonly" />
+					                     
+					                </div>
+					          </div>
+					</div>
+					
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		        
+	        
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal view -->
+	  <!-- modal edit-->
+	  <div class="modal fade" id="modal-edit" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Sửa thông tin sách:</h4>
+	        </div>
+	        	<form th:action="@{/updateSach}" method="POST" th:object="${sach}">
+	        	
+		        <div class="modal-body">
+		        <div class='col-sm-12'>
+					     <label >Id :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eid" class="form-control" th:field="*{id}"  readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+		        	<div class='col-sm-12'>
+					     <label >Name :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="ename" class="form-control" th:field="*{name}" />
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Quantity :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="equantity" class="form-control" type="number" min="1" th:field="*{quantity}"   />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Author :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <select id="eauthor" class="form-control" th:field="*{tacGia.id}">
+					                         <option  th:each="author : ${listTacgia}"
+					                            th:value="${author.id}"
+					                            th:utext="${author.name}"/>
+					        				</select>
+					                </div>
+					          </div>
+					</div>
+					
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal edit -->
+	   <!-- modal delete-->
+	  <div class="modal fade" id="modal-del" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Xóa sách:</h4>
+	        </div>
+	        	<form th:action="@{/deleteSach}" method="POST" >
+	        	<div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >Xác nhận xóa :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="hid" type="hidden" class="form-control" th:field="${hid}"  readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+					</div>
+		      
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal delete -->
+		<script type="text/javascript">
+			    function pass_view(id,name,author,quantity) {
+			    	document.getElementById("vid").value=id;
+			    	document.getElementById("vname").value=name;
+			    	document.getElementById("vauthor").value=author;
+			    	document.getElementById("vquantity").value=quantity;
+			    };
+			    function pass_edit(id,name,author,quantity) {
+			    	document.getElementById("eid").value=id;
+			    	document.getElementById("ename").value=name;
+			    	document.getElementById("eauthor").value=author;
+			    	document.getElementById("equantity").value=quantity;
+			    };
+			    function pass_del(id) {
+			    	document.getElementById("hid").value=id;
+			    	
+			    };
+			</script>
 </body>
 </html>

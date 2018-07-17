@@ -3,13 +3,21 @@
 <title>Spring Boot - Hibernate</title>
 </head>
 <body>
-	<a th:href="@{/customer-list}">List Customer</a><br />
+	<a th:href="@{/sach}">List Book</a><br />
 
-	<h1>Edit Customer:</h1>
-	<form th:action="@{/updateCustomer}" method="POST" th:object="${customer}">
+	<h1>Edit Book:</h1>
+	<form th:action="@{/updateSach}" method="POST" th:object="${sach}">
     	Id: <input th:field="*{id}" readonly="true" /> <br/> <br/>
-    	Name: <input th:field="*{name}"/> <br/> <br/>
-    	Address: <input th:field="*{address}"/> <br/> <br/>
+    	Name: <input type="text" th:field="*{name}" required="required"/> <br/> <br/>
+    	Quantity: <input type="number" min="1" th:field="*{quantity}" required="required"/> <br/> <br/>
+    	Author: 
+    	<select th:field="*{tacGia.id}">
+                         
+                         <option th:each="author : ${listTacgia}"
+                            th:value="${author.id}"
+                            th:utext="${author.name}"/>
+                  </select><br/>
+                  
 		<input type="submit" value="Submit" />
 	</form>
 </body>

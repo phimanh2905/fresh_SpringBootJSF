@@ -24,32 +24,32 @@ import org.springframework.transaction.annotation.Transactional;
 public class SachDAO extends ModelDAO {
 	Session session;
 	
-//    @SuppressWarnings("unchecked")
-//    public List<Sach> getAllSach() {
-//    	String hql = "FROM Sach";
-//    	session = getSession();
-//		Query que = session.createQuery(hql);
-//        return que.list();
-//    }
     @SuppressWarnings("unchecked")
     public List<Sach> getAllSach() {
-        List<Sach> list = null;
-        try {
-            Configuration configuration = new Configuration().configure();
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
-            Session session = sessionFactory.openSession();
-
-            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            Transaction transaction = session.beginTransaction();
-            String hql = "from Sach";
-            Query que = session.createQuery(hql);
-            list = que.list();
-            transaction.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }
-        return list;
+    	String hql = "FROM Sach";
+    	session = getSession();
+		Query que = session.createQuery(hql);
+        return que.list();
     }
+//    @SuppressWarnings("unchecked")
+//    public List<Sach> getAllSach() {
+//        List<Sach> list = null;
+//        try {
+//            Configuration configuration = new Configuration().configure();
+//            SessionFactory sessionFactory = configuration.buildSessionFactory();
+//            Session session = sessionFactory.openSession();
+//
+//            //Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//            Transaction transaction = session.beginTransaction();
+//            String hql = "from Sach";
+//            Query que = session.createQuery(hql);
+//            list = que.list();
+//            transaction.commit();
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
 
     public Sach getSachByID(int id) {
     	 Sach bk = null;

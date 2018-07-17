@@ -13,10 +13,14 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Description;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
  
 @SpringBootApplication
  
@@ -58,8 +62,8 @@ public class SbHibernateApplication {
         // See: application.properties  
         properties.put("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
         properties.put("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
-        properties.put("current_session_context_class", //
-                env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
+        properties.put("current_session_context_class",env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
+        properties.put("hibernate.enable_lazy_load_no_trans", env.getProperty("hibernate.enable_lazy_load_no_trans"));
  
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
  
@@ -80,5 +84,37 @@ public class SbHibernateApplication {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
  
         return transactionManager;
+    }
+    @Bean
+    @Description("Thymeleaf template resolver serving HTML 5")
+    public ServletContextTemplateResolver templateResolver() {
+        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+//        templateResolver.setPrefix("/WEB-INF/html/");
+//        templateResolver.setSuffix(".html");
+//        templateResolver.setTemplateMode("LEGACYHTML5");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setCacheable(false);
+
+        return templateResolver;
+    }
+//
+//    @Bean
+//    @Description("Thymeleaf template engine with Spring integration")
+//    public SpringTemplateEngine templateEngine() {
+//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//        templateEngine.setTemplateResolver(templateResolver());
+//
+//        return templateEngine;
+//    }
+//
+    @Bean
+    @Description("Thymeleaf view resolver")
+    public ThymeleafViewResolver viewResolver() {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        //viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setContentType("text/html;charset=UTF-8");
+        viewResolver.setCharacterEncoding("utf-8");
+
+        return viewResolver;
     }
 }
