@@ -22,11 +22,11 @@ Session session;
         return que.list();
     }
 
-    public AppUser getUserByID(long id) {
+    public AppUser getUserByName(String name) {
     	AppUser bk = null;
          try {
         	 session = getSession();
-             String hql = "from  AppUser where userId = "+id;
+             String hql = "from  AppUser where userName = "+name;
              Query que = session.createQuery(hql);
              bk = (AppUser)que.uniqueResult();
          } catch (HibernateException e) {
