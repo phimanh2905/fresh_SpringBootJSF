@@ -71,8 +71,8 @@ public class SachController {
 		return "sach-list";                                                     // redirect la return ve link mapping
 	}
 	
-	@RequestMapping("/sach-delete/id={id}")
-	public String doDeleteCustomer(@ModelAttribute("hid") int id, Model model) {
+	@RequestMapping("/deleteSach/id={id}")
+	public String doDeleteCustomer(@PathVariable int id, Model model) {
 		Sach sach = sachService.getSachByID(id);
 		sachService.deleteSach(sach);
 		model.addAttribute("msg", "Xóa sách thành công.");

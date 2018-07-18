@@ -24,15 +24,15 @@ public class TacgiaService {
          return tacgiaDAO.getTacGiaByID(id);
     }
 
-    public void insertSacht(TacGia sp) {
+    public void insertTacGia(TacGia sp) {
         this.tacgiaDAO.insertTacGiat(sp);
     }
 
     
-    public void updateSach(TacGia sp) {
+    public void updateTacGia(TacGia sp) {
         this.tacgiaDAO.updateTacGia(sp);
     }
-    public void deleteSach(TacGia sp) {
+    public void deleteTacGia(TacGia sp) {
         this.tacgiaDAO.deleteTacGia(sp);
     }
 }
