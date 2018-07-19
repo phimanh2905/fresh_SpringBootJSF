@@ -14,8 +14,12 @@ import com.xamthien.model.*;
 public class UserRoleService {
 	@Autowired
 	private UserRoleDAO userRoleDAO;
+	@Autowired
+	private AppUserDAO appUserDAO;
+	@Autowired
+	private AppRoleDAO appRoleDAO;
 	
-	public List<UserRole> getAllSach() {
+	public List<UserRole> getAllUserRole() {
         return userRoleDAO.getAllUserRole();
     }
 

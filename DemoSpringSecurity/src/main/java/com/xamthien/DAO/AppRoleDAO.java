@@ -22,7 +22,7 @@ Session session;
         return que.list();
     }
     public List<String> getRoleNames(Long userId) {
-        String sql = "Select r.roleName from AppRole r where r.roleId in (select ur.appRole.roleId from UserRole ur where ur.AppUser.userId=)"+userId;
+        String sql = "Select r.roleName from AppRole r where r.roleId in (select ur.appRole.roleId from UserRole ur where ur.AppUser.userId="+userId+")";
  
         //String hql = "from PgProducts p where p.pgCategories.categoryId =" + CATEGORY_ID + " and p.productStatus=1 and p.productId not in (select ps.pgProducts.productId from PgProductSales ps where  salesStatus = 1)";
  

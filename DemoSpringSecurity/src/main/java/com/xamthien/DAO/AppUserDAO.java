@@ -22,7 +22,7 @@ Session session;
         return que.list();
     }
 
-    public AppUser getUserByName(String name) {
+    public AppUser findUserAccount(String name) {
     	AppUser bk = null;
          try {
         	 session = getSession();

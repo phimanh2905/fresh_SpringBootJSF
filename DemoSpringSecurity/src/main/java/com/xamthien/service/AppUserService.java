@@ -18,8 +18,8 @@ public class AppUserService {
         return appUserDAO.getAllAppUser();
     }
 
-    public AppUser getAppUserByID(String name) {
-         return appUserDAO.getUserByName(name);
+    public AppUser findUserAccount(String name) {
+         return appUserDAO.findUserAccount(name);
     }
 
     public void insertAppRole(AppUser sp) {
