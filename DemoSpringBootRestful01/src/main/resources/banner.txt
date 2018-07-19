@@ -1,0 +1,13 @@
+https://o7planning.org/vi/11645/vi-du-crud-restful-web-service-voi-spring-boot
+
+http://localhost:8080/employees
+http://localhost:8080/employees.json
+http://localhost:8080/employees.xml
+http://localhost:8080/employee/E01
+http://localhost:8080/employee/E01.xml
+http://localhost:8080/employee/E01.json
+
+==> làm quen với restful webservice
+
+
+=============================================================================
