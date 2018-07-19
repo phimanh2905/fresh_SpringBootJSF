@@ -16,6 +16,8 @@
                  ++++++++                                             
                     +                                                 
 https://o7planning.org/vi/11543/tao-ung-dung-login-voi-spring-boot-spring-security-spring-jdbc
+Chú ý: bắt buộc tạo class UserDetailServiceIml implements UserDetailsService (class mặc định của spring security) 
+mục đích là để xác thực đối tượng "Là người nào" của spring security
 ===================================================================
 |             ===>>http://localhost:8080/ <<===                    |
 |                                                                  |

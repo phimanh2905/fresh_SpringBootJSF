@@ -15,6 +15,7 @@ public class MainController {
 	 @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	    public String welcomePage(Model model) {
 	        model.addAttribute("title", "Welcome");
+	        model.addAttribute("userInfo", null);
 	        model.addAttribute("message", "This is welcome page!");
 	        return "welcomePage";
 	    }
@@ -45,9 +46,6 @@ public class MainController {
 	    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
 	    public String userInfo(Model model, Principal principal) {
 	 
-	        // (1) (en)
-	        // After user login successfully.
-	        // (vi)
 	        // Sau khi user login thanh cong se co principal
 	        String userName = principal.getName();
 	 
@@ -57,7 +55,6 @@ public class MainController {
 	 
 	        String userInfo = WebUtils.toString(loginedUser);
 	        model.addAttribute("userInfo", userInfo);
-	 
 	        return "userInfoPage";
 	    }
 	 
@@ -72,7 +69,7 @@ public class MainController {
 	            model.addAttribute("userInfo", userInfo);
 	 
 	            String message = "Hi " + principal.getName() //
-	                    + "<br> You do not have permission to access this page!";
+	                    + "<br> Bạn không có quyền truy cập vào đây!";
 	            model.addAttribute("message", message);
 	 
 	        }

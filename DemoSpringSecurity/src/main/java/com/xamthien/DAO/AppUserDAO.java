@@ -26,7 +26,7 @@ Session session;
     	AppUser bk = null;
          try {
         	 session = getSession();
-             String hql = "from  AppUser where userName = "+name;
+             String hql = "from  AppUser where userName = '"+name+"'";
              Query que = session.createQuery(hql);
              bk = (AppUser)que.uniqueResult();
          } catch (HibernateException e) {

@@ -10,6 +10,7 @@
       <h1>Login</h1>
        
       <!-- /login?error=true -->
+      <!-- 
       <div th:if="${#request.getParameter('error') == 'true'}"
             style="color:red;margin:10px 0px;">
          Login Failed!!!<br />
@@ -20,13 +21,14 @@
          </span>
            
       </div>
+       -->
      
       <h3>Enter user name and password:</h3>
       <form name='f' th:action="@{/j_spring_security_check}" method='POST'>
          <table>
             <tr>
                <td>User:</td>
-               <td><input type='text' name='username' value=''></td>
+               <td><input type='text' name='username' /></td>
             </tr>
             <tr>
                <td>Password:</td>
@@ -38,7 +40,7 @@
          </table>
       </form>
        
-      <br>
+      <br/>
       Username/pass:
       <ul>
         <li>dbuser1/123</li>
