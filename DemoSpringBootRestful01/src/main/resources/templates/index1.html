@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Demo Spring RESTful</title>
+	  <meta charset="utf-8"/>
+	  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <!-- Include _menu.html -->
+      <th:block th:include="/_menu"></th:block>
+       
+      <h2>Demo get json from url</h2>
+      
+       
+      <br/><br/>
+       
+      <table class="table table-bordered">
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Quantity</th>
+			<th>View json</th>
+			
+		</tr>
+		<th:block th:each="bk : ${list}">
+			<tr>
+				<td><p th:text="${bk.empNo}"></p></td>
+				<td><p th:text="${bk.empName}"></p></td>
+				<td><p th:text="${bk.position}"></p></td>
+				
+				<td><a  th:href="@{/employee/${bk.empNo}}">View</a> </td>
+			</tr>
+		</th:block>
+	</table>
+       
+   </body>
+    
+</html>

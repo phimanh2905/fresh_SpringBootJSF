@@ -2,6 +2,7 @@ package com.xamthien.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,6 +61,15 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")// chua biet de lam gi
                 // Cấu hình cho Logout Page.
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
- 
+        //==========================================================================
+//        http.csrf().ignoringAntMatchers("/rest/**");
+//        http.authorizeRequests().antMatchers("/rest/login**").permitAll();
+//        http.antMatcher("/rest/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+//            .antMatchers(HttpMethod.GET, "/rest/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//            .antMatchers(HttpMethod.POST, "/rest/**").access("hasRole('ROLE_ADMIN')")
+//            .antMatchers(HttpMethod.DELETE, "/rest/**").access("hasRole('ROLE_ADMIN')").and()
+//            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+//            .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
     }
 }

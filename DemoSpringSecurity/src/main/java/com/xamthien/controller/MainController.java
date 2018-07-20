@@ -2,6 +2,8 @@ package com.xamthien.controller;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpSession;
+
 import com.xamthien.utils.WebUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +17,7 @@ public class MainController {
 	 @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
 	    public String welcomePage(Model model) {
 	        model.addAttribute("title", "Welcome");
-	        model.addAttribute("userInfo", null);
+	        //model.addAttribute("userInfo", null);
 	        model.addAttribute("message", "This is welcome page!");
 	        return "welcomePage";
 	    }
@@ -33,7 +35,7 @@ public class MainController {
 	 
 	    @RequestMapping(value = "/login", method = RequestMethod.GET)
 	    public String loginPage(Model model) {
-	 
+	    	
 	        return "loginPage";
 	    }
 	 
@@ -44,13 +46,13 @@ public class MainController {
 	    }
 	 
 	    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-	    public String userInfo(Model model, Principal principal) {
+	    public String userInfo(Model model, Principal principal,HttpSession session) {
 	 
 	        // Sau khi user login thanh cong se co principal
 	        String userName = principal.getName();
 	 
 	        System.out.println("User Name: " + userName);
-	 
+	        session.setAttribute("userName", userName);
 	        User loginedUser = (User) ((Authentication) principal).getPrincipal();
 	 
 	        String userInfo = WebUtils.toString(loginedUser);
@@ -63,7 +65,6 @@ public class MainController {
 	 
 	        if (principal != null) {
 	            User loginedUser = (User) ((Authentication) principal).getPrincipal();
-	 
 	            String userInfo = WebUtils.toString(loginedUser);
 	 
 	            model.addAttribute("userInfo", userInfo);

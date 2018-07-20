@@ -11,3 +11,4 @@ http://localhost:8080/employee/E01.json
 
 
 =============================================================================
+==> hướng dẫn đọc json : http://www.studytrails.com/java/json/java-json-simple/
