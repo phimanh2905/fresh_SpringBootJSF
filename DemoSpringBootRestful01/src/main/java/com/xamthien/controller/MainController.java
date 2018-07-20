@@ -29,12 +29,11 @@ public class MainController {
  
     // URL:
     // http://localhost:8080/SomeContextPath/employees
-    // http://localhost:8080/SomeContextPath/employees.xml
     // http://localhost:8080/SomeContextPath/employees.json
     @RequestMapping(value = "/employees", //
             method = RequestMethod.GET, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, //Thuộc tính produces được sử dụng để quy định một URL sẽ chỉ tạo ra (trả về cho người dùng) các dữ liệu với các định dạng nào. 
-                    MediaType.APPLICATION_XML_VALUE })		//Chẳng hạn "application/json", "application/xml".
+            produces = { MediaType.APPLICATION_JSON_VALUE}) //Thuộc tính produces được sử dụng để quy định một URL sẽ chỉ tạo ra (trả về cho người dùng) các dữ liệu với các định dạng nào. 
+                    //MediaType.APPLICATION_XML_VALUE })		//Chẳng hạn "application/json", "application/xml".
     @ResponseBody
     public List<Employee> getEmployees() {
         List<Employee> list = employeeDAO.getAllEmployees();
@@ -43,12 +42,11 @@ public class MainController {
  
     // URL:
     // http://localhost:8080/SomeContextPath/employee/{empNo}
-    // http://localhost:8080/SomeContextPath/employee/{empNo}.xml
     // http://localhost:8080/SomeContextPath/employee/{empNo}.json
     @RequestMapping(value = "/employee/{empNo}", //
             method = RequestMethod.GET, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, //
-                    MediaType.APPLICATION_XML_VALUE })
+            produces = { MediaType.APPLICATION_JSON_VALUE}) //
+                    //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Employee getEmployee(@PathVariable("empNo") String empNo) {
         return employeeDAO.getEmployee(empNo);
@@ -56,13 +54,12 @@ public class MainController {
  
     // URL:
     // http://localhost:8080/SomeContextPath/employee
-    // http://localhost:8080/SomeContextPath/employee.xml
     // http://localhost:8080/SomeContextPath/employee.json
  
     @RequestMapping(value = "/employee", //
             method = RequestMethod.POST, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, //
-                    MediaType.APPLICATION_XML_VALUE })
+            produces = { MediaType.APPLICATION_JSON_VALUE}) //
+                    //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Employee addEmployee(@RequestBody Employee emp) {
  
@@ -73,12 +70,11 @@ public class MainController {
  
     // URL:
     // http://localhost:8080/SomeContextPath/employee
-    // http://localhost:8080/SomeContextPath/employee.xml
     // http://localhost:8080/SomeContextPath/employee.json
     @RequestMapping(value = "/employee", //
             method = RequestMethod.PUT, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, //
-                    MediaType.APPLICATION_XML_VALUE })
+            produces = { MediaType.APPLICATION_JSON_VALUE}) //
+                    //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Employee updateEmployee(@RequestBody Employee emp) {
  
@@ -91,7 +87,7 @@ public class MainController {
     // http://localhost:8080/SomeContextPath/employee/{empNo}
     @RequestMapping(value = "/employee/{empNo}", //
             method = RequestMethod.DELETE, //
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+            produces = { MediaType.APPLICATION_JSON_VALUE})//, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public void deleteEmployee(@PathVariable("empNo") String empNo) {
  
