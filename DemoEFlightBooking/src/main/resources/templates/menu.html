@@ -5,17 +5,20 @@
         <a class="nav-link" th:href="@{/}">Home </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/searchx}">Xem các vé đã đặt</a>
+        <a class="nav-link" th:href="@{/searchx}">Xem cac ve da dat</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Phần dành cho quản lý hệ thống
+          Phan danh cho manager
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" th:href="@{/manager/flight}">Quan ly chuyen bay</a>
+          <a class="dropdown-item" href="#">abcxys</a>
+          
         </div>
+      </li>
+      <li class="nav-item">
+        <a th:if="${session.userName!= null }" th:href="@{/logout}">Logout</a>
       </li>
     </ul>
   </div>

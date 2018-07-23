@@ -36,12 +36,13 @@ public class FlightSchedules implements java.io.Serializable {
 	public FlightSchedules() {
 	}
 
-	public FlightSchedules(Airline airline, String FFrom, String FTo, int arrivalTime, Date departureTime) {
+	public FlightSchedules(Airline airline, String FFrom, String FTo, int arrivalTime, Date departureTime,String ortherDetails) {
 		this.airline = airline;
 		this.FFrom = FFrom;
 		this.FTo = FTo;
 		this.arrivalTime = arrivalTime;
 		this.departureTime = departureTime;
+		this.ortherDetails = ortherDetails;
 	}
 
 	public FlightSchedules(Airline airline, String FFrom, String FTo, int arrivalTime, Date departureTime,

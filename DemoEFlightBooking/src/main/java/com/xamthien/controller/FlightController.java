@@ -153,33 +153,22 @@ public class FlightController {
     	
         return "loginPage";
     }
-	@RequestMapping(value = "/manager/xxx", method = RequestMethod.GET)
-    public String xxx(Model model) {
-    	
-        return "loginPage";
-    }
-	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public String userInfo(Model model, Principal principal,HttpSession session) {
- 
-        // Sau khi user login thanh cong se co principal
-        String userName = principal.getName();
+	@RequestMapping(value = "/manager/flight", method = RequestMethod.GET)
+    public String xxx(Model model,Principal principal,HttpSession session) {
+		String userName = principal.getName();
         session.setAttribute("userName", userName);
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
- 
-        //String userInfo = WebUtils.toString(loginedUser);
-        //model.addAttribute("userInfo", userInfo);
-        
-        model.addAttribute("list", flightSchedulesService.getAllFlight());
-		return "trangchu";
+
+		model.addAttribute("list", flightSchedulesService.getAllFlight());
+		model.addAttribute("newflight", new FlightSchedules());
+        return "chuyenbay";
     }
+	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied(Model model, Principal principal) {
+    public String accessDenied(Model model, Principal principal,HttpSession session) {
  
         if (principal != null) {
-            User loginedUser = (User) ((Authentication) principal).getPrincipal();
-            String userInfo = WebUtils.toString(loginedUser);
- 
-            model.addAttribute("userInfo", userInfo);
+        	String userName = principal.getName();
+            session.setAttribute("userName", userName);
  
             String message = "Hi " + principal.getName() //
                     + "<br> Bạn không có quyền truy cập vào đây!";

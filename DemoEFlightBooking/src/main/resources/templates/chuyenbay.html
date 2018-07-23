@@ -1,0 +1,227 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Demo Spring boot - hibernate - Thymeleaf</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}"/> 
+</head>
+<body class="container">
+	<th:block th:include="/menu"></th:block>
+	<div>
+		<h1>Danh sách chuyến bay:</h1>
+		<hr/>
+		
+	</div>
+	<br />
+	<font style="color:red;"><i><span th:text="${msg}"></span></i></font>
+	<br />
+	<button type="button" class="btn btn-info " data-toggle="modal" data-target="#modal-add">Thêm Chuyến Bay</button>
+	<table class="table table-bordered">
+		<tr>
+			<th>STT</th>
+			<th>Từ</th>
+			<th>Đến</th>
+			<th>Giờ khởi hành</th>
+			<th>Hãng</th>
+			<th>Giá vé</th>
+			<th>Sửa</th>
+		</tr>
+		<th:block th:each="bk : ${list}">
+			<tr>
+				<td><p th:text="${bk.fid}"></p></td>
+				<td><p th:text="${bk.FFrom}"></p></td>
+				<td><p th:text="${bk.FTo}"></p></td>
+				<td><p th:text="${bk.departureTime}"></p></td>
+				<td><p th:text="${bk.airline.AName}"></p></td>
+				<td>99K</td>
+				<td><a href="#" data-toggle="modal" data-target="#modal-edit" th:onclick="'pass_edit('+${bk.fid}+',\''+ ${bk.FFrom}+'\',\''+${bk.FTo}+'\',\''+ ${bk.departureTime}+'\','+ ${bk.arrivalTime}+',\''+${bk.airline.AName}+'\');'">Sửa</a></td>
+				
+			</tr>
+		</th:block>
+	</table>
+	
+	  <!-- modal add-->
+	  <div class="modal fade" id="modal-add" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Thêm mới sách:</h4>
+	        </div>
+	        <form action="#" method="POST" >
+		        <div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >From :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input  class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >To :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input  class="form-control"  required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Departure time :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Arrival Time :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input  class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Airline ID:</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" required="required"   />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Price :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" required="required"  />
+					                </div>
+					          </div>
+					</div>
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="reset" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  <!-- end modal add -->
+	  <!-- modal edit-->
+	  <div class="modal fade" id="modal-edit" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Sửa thông tin sách:</h4>
+	        </div>
+	        	<form action="#" method="POST">
+	        	
+		        <div class="modal-body">
+		        <div class='col-sm-12'>
+					     <label >Id :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eid" class="form-control"  readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+		        	<div class='col-sm-12'>
+					     <label >From :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="efrom" class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >To :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eto" class="form-control"  required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Departure time :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="edeparture" class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Arrival Time :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="earrival" class="form-control" required="required" />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Airline ID:</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eairline" class="form-control"  required="required" />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Price :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eprice" class="form-control" required="required"  />
+					                </div>
+					          </div>
+					</div>
+					
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="reset" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal edit -->
+		<script type="text/javascript">
+			    
+			    function pass_edit(id,from,to,khoihanh,thoigianbay,hang) {
+			    	document.getElementById("eid").value=id;
+			    	document.getElementById("efrom").value=from;
+			    	document.getElementById("eto").value=to;
+			    	document.getElementById("edeparture").value=khoihanh;
+			    	document.getElementById("earrival").value=thoigianbay;
+			    	document.getElementById("eairline").value=hang;
+			    	document.getElementById("eprice").value="99K";
+			    	
+			    };
+			    function show_cus() {
+			    	 if( document.getElementById("hidethis").style.display=='none' ){
+			    	   document.getElementById("hidethis").style.display = '';
+			    	   //document.getElementById("showcus").style.display = 'none';
+			    	 }else{
+			    	   document.getElementById("hidethis").style.display = 'none';
+			    	   
+			    	 }
+			    	};
+			    
+			</script>
+</body>
+</html>

@@ -46,7 +46,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 // 
         // Trang chỉ dành cho Member
-        http.authorizeRequests().antMatchers("/manager/**").access("hasRole('MEMBER')");
+        http.authorizeRequests().antMatchers("/manager/flight").access("hasRole('ROLE_USER')");
 // 
         // Ngoại lệ AccessDeniedException sẽ ném ra.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
@@ -55,21 +55,12 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().formLogin()//
                 .loginProcessingUrl("/j_spring_security_check") // Servlet cua spring
                 .loginPage("/login")//
-                .defaultSuccessUrl("/searchx")//
+                .defaultSuccessUrl("//manager/flight")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
-                .passwordParameter("password")// chua biet de lam gi
-                // Cấu hình cho Logout Page.
+                .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
         //==========================================================================
-//        http.csrf().ignoringAntMatchers("/rest/**");
-//        http.authorizeRequests().antMatchers("/rest/login**").permitAll();
-//        http.antMatcher("/rest/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-//            .antMatchers(HttpMethod.GET, "/rest/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-//            .antMatchers(HttpMethod.POST, "/rest/**").access("hasRole('ROLE_ADMIN')")
-//            .antMatchers(HttpMethod.DELETE, "/rest/**").access("hasRole('ROLE_ADMIN')").and()
-//            .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-//            .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
+
     }
 }
