@@ -1,4 +1,6 @@
 package com.xamthien.DAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.xamthien.DAO.ModelDAO;
@@ -16,7 +18,7 @@ Session session;
 	
     @SuppressWarnings("unchecked")
     public List<Reservation> getReservationByPhone(String phone) {
-    	String hql = "FROM Reservation r where r.customer.phone='"+phone+"'";
+    	String hql = "FROM Reservation r where r.customer.phone='"+phone+"' and r.dateOfReservation <= r.flightSchedules.departureTime";
     	session = getSession();
 		Query que = session.createQuery(hql);
         return que.list();

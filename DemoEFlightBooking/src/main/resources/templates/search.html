@@ -6,15 +6,16 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!-- <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/> -->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}"/> 
 </head>
 <body class="container">
+	<th:block th:include="/menu"></th:block>
 	<div>
 		<h1>Tìm kiếm chuyến bay bạn đã đặt:</h1>
 	</div>
 	<hr/>
 	<div>
-		<input type="text" class="form-control" placeholder="Nhập số điện thoại..." id="txtsearch">
+		<input type="text" style="width: 234px;border-radius: 6px;" placeholder="Nhập số điện thoại..." id="txtsearch" />
 		<button class="btn btn-primary" type="button" onclick="showHint();" >Search</button>
 	</div>
 	<hr/>

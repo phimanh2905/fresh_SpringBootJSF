@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xamthien.utils.*;
+
 @Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,6 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AppRoleDAO appRoleDAO;
  
+   
+    
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		 AppUser appUser = this.appUserDAO.findUserAccount(userName);

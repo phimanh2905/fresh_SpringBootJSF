@@ -13,10 +13,12 @@
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping class="com.xamthien.model.Customer" />
-        <mapping class="com.xamthien.model.ReservationStatus" />
-        <mapping class="com.xamthien.model.PaymnetMethod" />
-        <mapping class="com.xamthien.model.Reservation" />
         <mapping class="com.xamthien.model.Airline" />
+        <mapping class="com.xamthien.model.User" />
+        <mapping class="com.xamthien.model.ReservationStatus" />
         <mapping class="com.xamthien.model.FlightSchedules" />
+        <mapping class="com.xamthien.model.Reservation" />
+        <mapping class="com.xamthien.model.Role" />
+        <mapping class="com.xamthien.model.PaymnetMethod" />
     </session-factory>
 </hibernate-configuration>

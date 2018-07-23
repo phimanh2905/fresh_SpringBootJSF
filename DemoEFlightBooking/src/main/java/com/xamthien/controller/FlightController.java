@@ -1,19 +1,26 @@
 package com.xamthien.controller;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xamthien.model.*;
 import com.xamthien.service.*;
+import com.xamthien.utils.WebUtils;
 
 @Controller
 public class FlightController {
@@ -41,9 +48,6 @@ public class FlightController {
 	@RequestMapping("/saveFlightBooking")
 	public String doSaveCustomer(HttpServletRequest req, Model model) {
 		String msg = "";
-		//@ModelAttribute("flightID") String flightID,@ModelAttribute("cusname") String cusname,
-		//@ModelAttribute("cusphone") String cusphone,@ModelAttribute("cusemail") String cusemail,
-		//@ModelAttribute("paymethod") String paymethodID,@ModelAttribute("stk") String stk,
 		try
 		{
 			String flightID = req.getParameter("flightID");
@@ -104,36 +108,90 @@ public class FlightController {
 		model.addAttribute("listpayment", paymentMethodService.getAll());
 		return "datve";
 	}
+	@RequestMapping("/searchx")
+	public String search() {
+		return "search";
+	}
 	@RequestMapping("/search")
-	public void searchFlightBooking(HttpServletRequest request, HttpServletResponse response) {
+	public void searchFlightBooking(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String phone = request.getParameter("txtsearch");
-//		try {
-//            List<Sach> rs = db.getLikeString(str);
-////            if(rs!= null)
-////		  	{
-////		  		for(Sach bk :rs)
-////		  		{
-////		  			TheLoai tlk = bk.getTheLoai();
-////		  			if(tlk.getStatus()==false)
-////		  			{
-////		  				rs.remove(bk);
-////		  			}
-////		  		}
-////		  	}
-//            String strtext = "";
-//            for (Sach hh : rs) {
-//                strtext += "<li class=\"suggest-col\" value=\"" + hh.getId() + "\" onclick=\"addDetail(" + hh.getId() + ");\">"
-//                        + "<span class=\"fa fa-tags fa-custom\"></span>"
-//                        + "<span class=\"fa-custom text-muted\">Tên sách: <b>" + hh.getName() + "</b></span>"
-//                        + "<span class=\"fa-custom text-muted\">Tác giả: <b>" + hh.getTacGia() + "</b></span>"
-//                        + "<span class=\"fa-custom text-muted\">Năm xuất bản: <b>" + hh.getNhaXuatBan() + "</b> </span>"
-//                        + "<span class=\"text-muted\">Số lượng hiện có: <b>" + hh.getSoLuong() + "</b></span>"
-//                        + "</li>";
-//            }
-//            response.getWriter().print(strtext);
-//        } catch (Exception ex) {
-//            response.getWriter().print("Lỗi truy vấn dữ liệu : " + ex.getMessage());
-//        }
+		response.setCharacterEncoding("utf-8");
+		try {
+            List<Reservation> rs = reservationService.getReservationByPhone(phone);
+            
+            String strtext = "";
+            if(rs != null)
+            {
+            	int stt =1;
+                for (Reservation hh : rs) 
+                {
+                	strtext+= "<tr> "
+                			+ "<td>"+stt+"</td> "
+                			+ "<td>"+hh.getFlightSchedules().getFFrom()+"</td>"
+                			+ "<td>"+hh.getFlightSchedules().getFTo()+"</td>"
+                			+ "<td>"+hh.getFlightSchedules().getDepartureTime()+"</td>"
+                			+ "<td>"+hh.getFlightSchedules().getArrivalTime()+"</td>"
+                			+ "<td>"+hh.getFlightSchedules().getAirline().getAName()+"</td>"
+                			+ "<td>"+"99K"+"</td>"
+                			+ "<td>"+hh.getReservationStatus().getRsName()+"</td>"
+                			+ "</tr>";
+                	stt++;
+                }
+            }
+            else
+            {
+            	strtext="Không có dữ liệu hiển thị.";
+            }
+            response.getWriter().print(strtext);
+        } catch (Exception ex) {
+            response.getWriter().print("Lỗi truy vấn dữ liệu : " + ex.getMessage());
+        }
 		
 	}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(Model model) {
+    	
+        return "loginPage";
+    }
+	@RequestMapping(value = "/manager/xxx", method = RequestMethod.GET)
+    public String xxx(Model model) {
+    	
+        return "loginPage";
+    }
+	@RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public String userInfo(Model model, Principal principal,HttpSession session) {
+ 
+        // Sau khi user login thanh cong se co principal
+        String userName = principal.getName();
+        session.setAttribute("userName", userName);
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+ 
+        //String userInfo = WebUtils.toString(loginedUser);
+        //model.addAttribute("userInfo", userInfo);
+        
+        model.addAttribute("list", flightSchedulesService.getAllFlight());
+		return "trangchu";
+    }
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accessDenied(Model model, Principal principal) {
+ 
+        if (principal != null) {
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
+            String userInfo = WebUtils.toString(loginedUser);
+ 
+            model.addAttribute("userInfo", userInfo);
+ 
+            String message = "Hi " + principal.getName() //
+                    + "<br> Bạn không có quyền truy cập vào đây!";
+            model.addAttribute("message", message);
+ 
+        }
+ 
+        return "403Page";
+    }
+	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    public String logoutSuccessfulPage(Model model) {
+		model.addAttribute("list", flightSchedulesService.getAllFlight());
+		return "trangchu";
+    }
 }

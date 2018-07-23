@@ -6,11 +6,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}"/> 
 </head>
 <body class="container">
+	<th:block th:include="/menu"></th:block>
 	<div>
 		<h1>Danh sách chuyến bay:</h1>
-		
+		<hr/>
+		<a class="btn btn-primary" th:href="@{/searchx}">Xem các chuyến bay đã đặt</a>
 	</div>
 	<br />
 	<font style="color:red;"><i><span th:text="${msg}"></span></i></font>

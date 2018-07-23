@@ -11,8 +11,8 @@ INSERT INTO AIRLINE(A_NAME,A_NOTE) VALUES ('VNAIRLINE',''),('VIETJET','');
 
 create table FLIGHT_SCHEDULES(
 	FID int auto_increment primary key,
-    F_FROM VARCHAR(100) NOT NULL,
-    F_TO   VARCHAR(100) NOT NULL,
+    F_FROM NVARCHAR(100) NOT NULL,
+    F_TO   NVARCHAR(100) NOT NULL,
 	ARRIVAL_TIME int NOT NULL,
     DEPARTURE_TIME DATETIME NOT NULL,
     ORTHER_DETAILS NVARCHAR(255) NULL,
@@ -20,8 +20,9 @@ create table FLIGHT_SCHEDULES(
     FOREIGN KEY (AIRLINE_CODE) REFERENCES AIRLINE(AID)
 );
 INSERT INTO FLIGHT_SCHEDULES(F_FROM,F_TO,ARRIVAL_TIME,DEPARTURE_TIME,ORTHER_DETAILS,AIRLINE_CODE) values
-	('Hà nội','Trung Quốc',90,'2018/07/12 15:00:00','',1),
-    ('Hà nội','HCM',200,'2018/07/12 10:00:00','',2);
+	('HCM','Trung Quốc',90,'2018/07/25 15:00:00','',1),
+    ('Hà nội','HCM',200,'2018/07/24 10:00:00','',2);
+    
 CREATE TABLE CUSTOMER(
 	CID int auto_increment primary key,
     C_NAME NVARCHAR(50) not null,
@@ -36,7 +37,7 @@ CREATE TABLE PAYMNET_METHOD(
 insert into PAYMNET_METHOD(P_NAME) values ('Paypal'),('Payoner'),('Visa master Card');
 CREATE TABLE RESERVATION_STATUS(
 	RSID int auto_increment primary key,
-    RS_NAME VARCHAR(50) not null
+    RS_NAME NVARCHAR(50) not null
 );
 insert into RESERVATION_STATUS(RS_NAME) values ('Đã thanh toán'),('Chưa thanh toán');
  CREATE TABLE RESERVATION(
@@ -55,7 +56,21 @@ insert into RESERVATION_STATUS(RS_NAME) values ('Đã thanh toán'),('Chưa than
  insert into RESERVATION(CID,DATE_OF_RESERVATION,FID,PID,RSID) values 
 	(1,'2018/07/10 15:00:00',1,2,1),
     (2,'2018/07/09 10:00:00',2,1,2);
-    
+Create table ROLE(
+	RID INT auto_increment PRIMARY KEY,
+    R_NAME varchar(20) NOT NULL
+);
+INSERT INTO ROLE(R_NAME) VALUES ('MEMBER'), ('ADMIN');
+Create table USER(
+	UID INT auto_increment PRIMARY KEY,
+    USERNAME NVARCHAR(50) NOT NULL,
+    PASS VARCHAR(50) NOT NULL,
+    ROLE_ID INT NOT NULL,
+    FOREIGN KEY (ROLE_ID) REFERENCES ROLE(RID)
+);
+INSERT INTO USER(USERNAME,PASS,ROLE_ID) VALUES 
+	('huy','12345',1), ('xamthien','12345',2);
+
     
     
     

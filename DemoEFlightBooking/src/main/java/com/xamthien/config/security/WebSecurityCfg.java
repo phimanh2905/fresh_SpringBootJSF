@@ -39,28 +39,28 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
  
         // Các trang không yêu cầu login
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout","/saveFlightBooking","/chitiet/**","/searchx").permitAll();
  
 //        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
 //        // Nếu chưa login, nó sẽ redirect tới trang /login.
 //        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 // 
-//        // Trang chỉ dành cho ADMIN
-//        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+        // Trang chỉ dành cho Member
+        http.authorizeRequests().antMatchers("/manager/**").access("hasRole('MEMBER')");
 // 
-//        // Ngoại lệ AccessDeniedException sẽ ném ra.
-//        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        // Ngoại lệ AccessDeniedException sẽ ném ra.
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 // 
-//        // Cấu hình cho Login Form.
-//        http.authorizeRequests().and().formLogin()//
-//                .loginProcessingUrl("/j_spring_security_check") // Servlet cua spring
-//                .loginPage("/login")//
-//                .defaultSuccessUrl("/userInfo")//
-//                .failureUrl("/login?error=true")//
-//                .usernameParameter("username")//
-//                .passwordParameter("password")// chua biet de lam gi
-//                // Cấu hình cho Logout Page.
-//                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
+        // Cấu hình cho Login Form.
+        http.authorizeRequests().and().formLogin()//
+                .loginProcessingUrl("/j_spring_security_check") // Servlet cua spring
+                .loginPage("/login")//
+                .defaultSuccessUrl("/searchx")//
+                .failureUrl("/login?error=true")//
+                .usernameParameter("username")//
+                .passwordParameter("password")// chua biet de lam gi
+                // Cấu hình cho Logout Page.
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
         //==========================================================================
 //        http.csrf().ignoringAntMatchers("/rest/**");
 //        http.authorizeRequests().antMatchers("/rest/login**").permitAll();
