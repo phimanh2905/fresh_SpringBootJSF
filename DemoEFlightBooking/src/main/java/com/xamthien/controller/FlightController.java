@@ -1,7 +1,9 @@
 package com.xamthien.controller;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,5 +103,37 @@ public class FlightController {
 		model.addAttribute("flightID", String.valueOf(id));
 		model.addAttribute("listpayment", paymentMethodService.getAll());
 		return "datve";
+	}
+	@RequestMapping("/search")
+	public void searchFlightBooking(HttpServletRequest request, HttpServletResponse response) {
+		String phone = request.getParameter("txtsearch");
+//		try {
+//            List<Sach> rs = db.getLikeString(str);
+////            if(rs!= null)
+////		  	{
+////		  		for(Sach bk :rs)
+////		  		{
+////		  			TheLoai tlk = bk.getTheLoai();
+////		  			if(tlk.getStatus()==false)
+////		  			{
+////		  				rs.remove(bk);
+////		  			}
+////		  		}
+////		  	}
+//            String strtext = "";
+//            for (Sach hh : rs) {
+//                strtext += "<li class=\"suggest-col\" value=\"" + hh.getId() + "\" onclick=\"addDetail(" + hh.getId() + ");\">"
+//                        + "<span class=\"fa fa-tags fa-custom\"></span>"
+//                        + "<span class=\"fa-custom text-muted\">Tên sách: <b>" + hh.getName() + "</b></span>"
+//                        + "<span class=\"fa-custom text-muted\">Tác giả: <b>" + hh.getTacGia() + "</b></span>"
+//                        + "<span class=\"fa-custom text-muted\">Năm xuất bản: <b>" + hh.getNhaXuatBan() + "</b> </span>"
+//                        + "<span class=\"text-muted\">Số lượng hiện có: <b>" + hh.getSoLuong() + "</b></span>"
+//                        + "</li>";
+//            }
+//            response.getWriter().print(strtext);
+//        } catch (Exception ex) {
+//            response.getWriter().print("Lỗi truy vấn dữ liệu : " + ex.getMessage());
+//        }
+		
 	}
 }
