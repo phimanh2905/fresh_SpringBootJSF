@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xamthien.DAO.EmployeeDAO;
 import com.xamthien.model.Employee;
 import com.xamthien.model.Post;
+
  
 @RestController
 public class MainController {
@@ -35,8 +36,11 @@ public class MainController {
  
     @RequestMapping("/")
     @ResponseBody
-    public String welcome() {
-        return "Welcome to RestTemplate Example.";
+    public String welcome(Model model) {
+    	List<Employee> list = employeeDAO.getAllEmployees();
+    	model.addAttribute("list", list);
+    	model.addAttribute("emp", new Employee());
+        return "index1.html";
     }
  
     // URL:

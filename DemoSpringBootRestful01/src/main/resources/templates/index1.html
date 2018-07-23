@@ -1,29 +1,33 @@
-<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <title>Demo Spring RESTful</title>
-	  <meta charset="utf-8"/>
-	  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   </head>
-   <body>
-      <!-- Include _menu.html -->
-      <th:block th:include="/_menu"></th:block>
-       
-      <h2>Demo get json from url</h2>
-      
-       
-      <br/><br/>
-       
-      <table class="table table-bordered">
+<head>
+  <title>Demo Spring boot - hibernate - Thymeleaf</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div>
+		<h1>List Employee:</h1>
+		
+	</div>
+	<a class="btn btn-info " href="/employees">View json all employee</a>
+	
+	
+	<br />
+	<font style="color:red;"><i><span th:text="${msg}"></span></i></font>
+	<br />
+
+	<table class="table table-bordered">
 		<tr>
 			<th>Id</th>
 			<th>Name</th>
-			<th>Quantity</th>
-			<th>View json</th>
+			<th>Position</th>
 			
+			<th>View</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 		<th:block th:each="bk : ${list}">
 			<tr>
@@ -31,11 +35,161 @@
 				<td><p th:text="${bk.empName}"></p></td>
 				<td><p th:text="${bk.position}"></p></td>
 				
-				<td><a  th:href="@{/employee/${bk.empNo}}">View</a> </td>
+				
+				
+				<td><a href="#" data-toggle="modal" data-target="#modal-edit" th:onclick="'pass_edit('+${bk.id}+',\'' + ${bk.name} '\','+${bk.quantity}+');'">Edit</a></td>
+				<td><a href="#" data-toggle="modal" data-target="#modal-del" th:onclick="'pass_del('+${bk.id}+');'">Delete</a></td>
 			</tr>
 		</th:block>
 	</table>
-       
-   </body>
-    
+	<!-- modal add-->
+	  <div class="modal fade" id="modal-add" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Thêm mới NV:</h4>
+	        </div>
+	        <form th:action="@{/employee}" method="POST" th:object="${emp}">
+		        <div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >ID :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control" th:field="*{empNo}" required="required"/>
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Name :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control"  th:field="*{empName}" required="required" />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Position :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input class="form-control"  th:field="*{position}" required="required" />
+					                </div>
+					          </div>
+					</div>
+					
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="reset" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  <!-- end modal add -->
+	
+	  <!-- modal edit-->
+	  <div class="modal fade" id="modal-edit" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Sửa thông tin NV:</h4>
+	        </div>
+	        	<form th:action="@{/employee}" method="POST" th:object="${emp}">
+	        	
+		        <div class="modal-body">
+		        <div class='col-sm-12'>
+					     <label >Id :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eid" class="form-control" th:field="*{empNo}"  readonly="readonly"/>
+					                </div>
+					          </div>
+					</div>
+		        	<div class='col-sm-12'>
+					     <label >Name :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="ename" class="form-control" th:field="*{empName}" />
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Position :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eposition" class="form-control"  th:field="*{position}"   />
+					                </div>
+					          </div>
+					</div>
+			    	
+					
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          <button type="reset" class="btn btn-default" >Reset</button>
+		          <button type="submit" class="btn btn-default" >Save</button>
+		        </div>
+		        
+	        </form>
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal edit -->
+	   <!-- modal delete-->
+	  <div class="modal fade" id="modal-del" role="dialog">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Xóa NV:</h4>
+	        </div>
+	        	
+	        	<div class="modal-body">
+		        	<div class='col-sm-12'>
+					     <label >Xác nhận xóa :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                    
+					                </div>
+					          </div>
+					</div>
+					</div>
+		      
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		          
+		          <a  id="sbmit" class="btn btn-default" >Delete</a>
+		        </div>
+		        
+	        
+	      </div>
+	     
+	    </div>
+	  </div>
+	  <!-- end modal delete -->
+		<script type="text/javascript">
+			    
+			    function pass_edit(id,name,pos) {
+			    	document.getElementById("eid").value=id;
+			    	document.getElementById("ename").value=name;
+			    	document.getElementById("eposition").value=pos;
+			    	
+			    };
+			    function pass_del(id) {
+			    	document.getElementById("sbmit").href="/employee/"+id;
+			    	
+			    };
+			</script>
+</body>
 </html>

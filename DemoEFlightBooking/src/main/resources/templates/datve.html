@@ -1,0 +1,156 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Demo Spring boot - hibernate - Thymeleaf</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+	<div>
+		<h1>Chi tiết chuyến bay:</h1>
+	</div>
+	<hr/>
+	
+	        	
+		        <div class="modal-body">
+		        	
+		        	<div class='col-sm-12'>
+					     <label >Từ :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="efrom" readonly="readonly" class="form-control" th:value="${flight.FFrom}" />
+					                </div>
+					          </div>
+					</div>
+			    	 <div class='col-sm-12'>
+					     <label >Đến :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eto" readonly="readonly" class="form-control" th:value="${flight.FTo}"   />
+					                </div>
+					          </div>
+					</div>
+			    	<div class='col-sm-12'>
+					     <label >Khởi hành :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="edeparture" readonly="readonly" class="form-control" th:value="${flight.departureTime}"    />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Thời gian bay (phút) :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="earrival" readonly="readonly" class="form-control" th:value="${flight.arrivalTime}"    />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Hãng bay :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eairline" readonly="readonly" class="form-control"  th:value="${flight.airline.AName}"   />
+					                </div>
+					          </div>
+					</div>
+					<div class='col-sm-12'>
+					     <label >Giá vé :</label>
+					           <div class="form-group">
+					                <div class="form-group" >
+					                     <input id="eprice" readonly="readonly" class="form-control"  value="99K"  />
+					                </div>
+					          </div>
+					</div>
+		        </div>
+		        	   <!-- modal delete-->
+					  <div class="modal fade" id="modal-cus" role="dialog">
+					    <div class="modal-dialog">
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">Thông tin quý khách:</h4>
+					        </div>
+					        	<form th:action="@{/saveFlightBooking}" method="POST" >
+					        	<div class="modal-body">
+					        	
+					        		<input id="eid" type="text" class="form-control" required="required" name="flightID"  />
+									<div class='col-sm-12'>
+									     <label >Tên Quý Khách :</label>
+									           <div class="form-group">
+									                <div class="form-group" >
+									                     <input type="text" class="form-control"  required="required" name="cusname"  />
+									                </div>
+									          </div>
+									</div>
+									<div class='col-sm-12'>
+									     <label >SĐT Quý Khách :</label>
+									           <div class="form-group">
+									                <div class="form-group" >
+									                     <input type="text" class="form-control"  required="required" name="cusphone"  />
+									                </div>
+									          </div>
+									</div>
+									<div class='col-sm-12'>
+									     <label >Email Quý Khách :</label>
+									           <div class="form-group">
+									                <div class="form-group" >
+									                     <input type="text" class="form-control" name="cusemail"   />
+									                </div>
+									          </div>
+									</div>
+									<div class='col-sm-12'>
+									     <label >Phương thức thanh toán :</label>
+									           <div class="form-group">
+									                <div class="form-group" >
+									                     <select id="eauthor" class="form-control" name="paymethod" >
+									                         <option  th:each="pay : ${listpayment}"
+									                            th:value="${pay.pid}"
+									                            th:utext="${pay.PName}"/>
+									        				</select>
+									                </div>
+									          </div>
+									</div>
+									<div class='col-sm-12'>
+									     <label >Số tài khoản :</label>
+									           <div class="form-group">
+									                <div class="form-group" >
+									                     <input type="text" class="form-control" name="stk"   />
+									                </div>
+									          </div>
+									</div>
+								</div>
+						      
+						        <div class="clearfix"></div>
+						        <div class="modal-footer">
+						          <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+						          <button type="submit" class="btn btn-primary">Xác nhận đặt vé</button>
+						          
+						        </div>
+						         </form>
+					        
+					      </div>
+					     
+					    </div>
+					  </div>
+					  <!-- end modal delete -->
+		        <div class="clearfix"></div>
+		        <div class="modal-footer">
+		         
+		          
+		          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cus" th:onclick="'pass_book('+${flightID}+');'" >Đặt vé</button>
+		        </div>
+		        
+	       
+	        <script type="text/javascript">
+			    
+			    function pass_book(id) {
+			    	document.getElementById("eid").value=id;
+			    	
+			    };
+			    
+			</script>
+</body>
+</html>
