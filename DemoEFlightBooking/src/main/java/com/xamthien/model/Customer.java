@@ -80,13 +80,19 @@ public class Customer implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public Set<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(Set<Reservation> reservations) {
-		this.reservations = reservations;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+//	public Set<Reservation> getReservations() {
+//		return this.reservations;
+//	}
+//
+//	public void setReservations(Set<Reservation> reservations) {
+//		this.reservations = reservations;
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "Customer [cid=" + cid + ", CName=" + CName + ", phone=" + phone + ", email=" + email + "]";
+//	}
+	
 
 }

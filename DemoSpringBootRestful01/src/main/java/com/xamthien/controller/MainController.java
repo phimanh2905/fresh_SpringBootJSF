@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import org.json.simple.JSONArray;
@@ -113,38 +114,38 @@ public class MainController {
         employeeDAO.deleteEmployee(empNo);
     }
     //==================================================================================
-    // demo get json from URL
+    // demo get json from URL https://www.youtube.com/watch?reload=9&v=_3_3VEpd5bQ
     @RequestMapping(value = "/getJson", method = RequestMethod.GET) 
     @ResponseBody
     public String loadJsonEmployees(Model model) {
     	List<Employee> list = null;
-//    	JSONParser parser = new JSONParser();
-//        try {         
-//            URL oracle = new URL("http://headers.jsontest.com/"); // URL to Parse
-//            URLConnection yc = oracle.openConnection();
-//            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-//            
-//            String inputLine;
-//            while ((inputLine = in.readLine()) != null) {               
-//                JSONArray a = (JSONArray) parser.parse(inputLine);
-//                // Loop through each item
-//                for (Object o : a) {
-//                    JSONObject item = (JSONObject) o;
-//                    String id = (String) item.get("one");
-//                    String name = (String) item.get("key");
-//                    
-//                    list.add(new Employee(id,name,"xxx"));
-//                }
-//            }
-//            in.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-    	
+    	JSONParser parser = new JSONParser();
+        try {         
+            URL url = new URL("/employees"); // URL to Parse
+            URLConnection yc = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+            
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {               
+                JSONArray a = (JSONArray) parser.parse(inputLine);
+                // Loop through each item
+                for (Object o : a) {
+                    JSONObject item = (JSONObject) o;
+                    String id = (String) item.get("empNo");
+                    String name = (String) item.get("empName");
+                    String pos = (String) item.get("position");
+                    list.add(new Employee(id,name,pos));
+                }
+            }
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     	//===================================================
     	// đây là đọc 1 phần tử
 //    	ObjectMapper mapper = new ObjectMapper();

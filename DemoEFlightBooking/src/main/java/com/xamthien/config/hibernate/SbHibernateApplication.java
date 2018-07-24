@@ -34,9 +34,9 @@ public class SbHibernateApplication {
     private Environment env;
      
      
-    public static void main(String[] args) {
-        SpringApplication.run(SbHibernateApplication.class, args);
-    }
+//    public static void main(String[] args) {
+//        SpringApplication.run(SbHibernateApplication.class, args);
+//    }
      
      
     @Bean(name = "dataSource")
