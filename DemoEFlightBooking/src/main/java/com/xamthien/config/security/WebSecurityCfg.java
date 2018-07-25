@@ -46,7 +46,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 // 
         // Trang chỉ dành cho Member
-        http.authorizeRequests().antMatchers("/manager/flight").access("hasRole('ROLE_USER')");
+        http.authorizeRequests().antMatchers("/manager/flight").access("hasRole('ROLE_MEMBER')");
 // 
         // Ngoại lệ AccessDeniedException sẽ ném ra.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");

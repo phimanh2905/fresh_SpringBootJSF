@@ -1,6 +1,10 @@
 package com.xamthien.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,11 +83,14 @@ public class MainController {
             produces = { MediaType.APPLICATION_JSON_VALUE}) //
                     //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Employee addEmployee(@RequestBody Employee emp) {
- 
-        System.out.println("(Service Side) Creating employee: " + emp.getEmpNo());
- 
-        return employeeDAO.addEmployee(emp);
+    public void addEmployee(HttpServletRequest req,HttpServletResponse response) throws IOException {
+    	String id= req.getParameter("empNo");
+    	String name= req.getParameter("empName");
+    	String pos= req.getParameter("position");
+    	Employee emp = new Employee(id,name,pos);
+        
+        employeeDAO.addEmployee(emp);
+        response.getWriter().println("Thêm thành công"); ;
     }
  
     // URL:

@@ -35,4 +35,10 @@ public class CustomerController {
         List<Customer> list = customerService.getAllCustomer();
         return list;
     }
+	
+	@RequestMapping("/test")
+	public String listSach(Model model) {	
+		
+		return "testConnectRestFul";
+	}
 }
