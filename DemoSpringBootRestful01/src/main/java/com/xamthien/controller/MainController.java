@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,28 +75,24 @@ public class MainController {
         return employeeDAO.getEmployee(empNo);
     }
  
-    // URL:
-    // http://localhost:8080/SomeContextPath/employee
-    // http://localhost:8080/SomeContextPath/employee.json
  
     @RequestMapping(value = "/employee", //
             method = RequestMethod.POST, //
             produces = { MediaType.APPLICATION_JSON_VALUE}) //
                     //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public void addEmployee(HttpServletRequest req,HttpServletResponse response) throws IOException {
-    	String id= req.getParameter("empNo");
-    	String name= req.getParameter("empName");
-    	String pos= req.getParameter("position");
-    	Employee emp = new Employee(id,name,pos);
+    public Employee addEmployee(@RequestBody Employee emp) {
+//    	String id= req.getParameter("empNo");
+//    	String name= req.getParameter("empName"); ,HttpServletRequest req,HttpServletResponse response
+//    	String pos= req.getParameter("position");  throws IOException
+//    	Employee emp = new Employee(id,name,pos);
         
-        employeeDAO.addEmployee(emp);
-        response.getWriter().println("Thêm thành công"); ;
+        //employeeDAO.addEmployee(emp);
+        //response.getWriter().println(emp.getEmpName()); 
+    	return(emp);
     }
- 
-    // URL:
-    // http://localhost:8080/SomeContextPath/employee
-    // http://localhost:8080/SomeContextPath/employee.json
+
+    
     @RequestMapping(value = "/employee", //
             method = RequestMethod.PUT, //
             produces = { MediaType.APPLICATION_JSON_VALUE}) //
