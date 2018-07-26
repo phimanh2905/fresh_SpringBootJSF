@@ -4,10 +4,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -81,15 +84,15 @@ public class MainController {
             produces = { MediaType.APPLICATION_JSON_VALUE}) //
                     //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Employee addEmployee(@RequestBody Employee emp) {
+    public void addEmployee(@Valid @RequestBody Employee emp,HttpServletResponse response) throws IOException {
 //    	String id= req.getParameter("empNo");
 //    	String name= req.getParameter("empName"); ,HttpServletRequest req,HttpServletResponse response
 //    	String pos= req.getParameter("position");  throws IOException
 //    	Employee emp = new Employee(id,name,pos);
         
-        //employeeDAO.addEmployee(emp);
-        //response.getWriter().println(emp.getEmpName()); 
-    	return(emp);
+        employeeDAO.addEmployee(emp);
+        response.getWriter().println("Them thanh cong"); 
+    	//return(emp);
     }
 
     
@@ -98,11 +101,12 @@ public class MainController {
             produces = { MediaType.APPLICATION_JSON_VALUE}) //
                     //MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Employee updateEmployee(@RequestBody Employee emp) {
+    public void  updateEmployee(@RequestBody Employee emp,HttpServletResponse response) throws IOException {
  
         System.out.println("(Service Side) Editing employee: " + emp.getEmpNo());
  
-        return employeeDAO.updateEmployee(emp);
+        employeeDAO.updateEmployee(emp);
+        response.getWriter().println("Sua thanh cong"); 
     }
  
     // URL:
@@ -117,6 +121,7 @@ public class MainController {
  
         employeeDAO.deleteEmployee(empNo);
     }
+
     //==================================================================================
     // demo get json from URL https://www.youtube.com/watch?reload=9&v=_3_3VEpd5bQ
     @RequestMapping(value = "/getJson", method = RequestMethod.GET) 
@@ -149,7 +154,6 @@ public class MainController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
     	//===================================================
     	// đây là đọc 1 phần tử
 //    	ObjectMapper mapper = new ObjectMapper();
@@ -163,4 +167,5 @@ public class MainController {
         model.addAttribute("list", list);
         return "index1";
     }
+    
 }

@@ -1,5 +1,11 @@
 package com.xamthien.controller;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +33,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xamthien.model.*;
 import com.xamthien.service.*;
 import com.xamthien.utils.WebUtils;
@@ -183,4 +201,114 @@ public class FlightController {
 		model.addAttribute("list", flightSchedulesService.getAllFlight());
 		return "trangchu";
     }
+	
+	@RequestMapping("/testpost")
+    public void post(HttpServletRequest req,HttpServletResponse resp) throws IOException
+    {//var obj= {'empNo':id,'empName':name,'position':pos};
+    	
+    	String id = req.getParameter("idx");
+    	String name = req.getParameter("namex");
+    	String pos = req.getParameter("posx");
+    	JSONObject json = new JSONObject();
+    	json.put("empNo", id);    
+    	json.put("empName", name);    
+    	json.put("position", pos);    
+
+    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+    	try {
+    	    HttpPost request = new HttpPost("http://192.188.88.119:8080/employee");
+    	    StringEntity params = new StringEntity(json.toString());
+    	    request.addHeader("content-type", "application/json");
+    	    request.setEntity(params);
+    	    httpClient.execute(request);
+    	    resp.getWriter().println("Thêm thành công");
+    	} catch (Exception ex) {
+    	    // handle exception here
+    	} finally {
+    	    httpClient.close();
+    	}
+    }
+	@RequestMapping("/testput")
+    public void put(HttpServletRequest req,HttpServletResponse resp) throws IOException
+    {//var obj= {'empNo':id,'empName':name,'position':pos};
+    	
+    	String id = req.getParameter("idx");
+    	String name = req.getParameter("namex");
+    	String pos = req.getParameter("posx");
+    	JSONObject json = new JSONObject();
+    	json.put("empNo", id);    
+    	json.put("empName", name);    
+    	json.put("position", pos);    
+
+    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+    	try {
+    	    HttpPut request = new HttpPut("http://192.188.88.119:8080/employee/"+id);
+    	    StringEntity params = new StringEntity(json.toString());
+    	    request.addHeader("content-type", "application/json");
+    	    request.setEntity(params);
+    	    httpClient.execute(request);
+    	    resp.getWriter().println("Sửa thành công");
+    	} catch (Exception ex) {
+    	    // handle exception here
+    	} finally {
+    	    httpClient.close();
+    	}
+    }
+	@RequestMapping("/testdelete")
+    public void delete(HttpServletRequest req,HttpServletResponse resp) throws IOException
+    {//var obj= {'empNo':id,'empName':name,'position':pos};
+    	
+    	String id = req.getParameter("idx");   
+
+    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+    	try {
+    	    HttpDelete request = new HttpDelete("http://192.188.88.119:8080/employee/"+id);
+
+    	    request.addHeader("content-type", "application/json");
+    	    httpClient.execute(request);
+    	    resp.getWriter().println("Xóa thành công");
+    	} catch (Exception ex) {
+    		resp.getWriter().println("Xóa không thành công");
+    	} finally {
+    	    httpClient.close();
+    	}
+    }
+	@RequestMapping("/getlist")
+    public void getLst(HttpServletRequest req,HttpServletResponse resp) throws IOException
+    {//var obj= {'empNo':id,'empName':name,'position':pos};
+		URL website = new URL("http://192.188.88.119:8080/employees");
+        InputStream inputStream = null;
+        BufferedReader bufferedReader = null;
+        try
+        {
+        	inputStream = website.openStream();
+        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
+        	
+        	StringBuilder stringBuilder = new StringBuilder();
+        	int cp;
+        	while ((cp = bufferedReader.read())!=-1)
+        	{
+        		stringBuilder.append((char)cp);
+        	}
+        	ObjectMapper mapper = new ObjectMapper();
+        	JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, Employee.class);
+        	List<Employee> lst = mapper.readValue(stringBuilder.toString(), type);
+        	//return stringBuilder.toString();
+        	for(Employee emp :lst)
+        	{
+        		System.out.println(emp.getEmpName());
+        	}
+        }
+        catch(Exception e)
+        {
+        	inputStream.close();
+        	bufferedReader.close();
+        	
+        }
+		//resp.getWriter().println("xxx");
+    }
+	
 }
