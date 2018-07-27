@@ -205,7 +205,7 @@ public class FlightController {
 	@RequestMapping("/testpost")
     public void post(HttpServletRequest req,HttpServletResponse resp) throws IOException
     {//var obj= {'empNo':id,'empName':name,'position':pos};
-    	
+		resp.setCharacterEncoding("utf-8");
     	String id = req.getParameter("idx");
     	String name = req.getParameter("namex");
     	String pos = req.getParameter("posx");
@@ -232,7 +232,7 @@ public class FlightController {
 	@RequestMapping("/testput")
     public void put(HttpServletRequest req,HttpServletResponse resp) throws IOException
     {//var obj= {'empNo':id,'empName':name,'position':pos};
-    	
+		resp.setCharacterEncoding("utf-8");
     	String id = req.getParameter("idx");
     	String name = req.getParameter("namex");
     	String pos = req.getParameter("posx");
@@ -259,7 +259,7 @@ public class FlightController {
 	@RequestMapping("/testdelete")
     public void delete(HttpServletRequest req,HttpServletResponse resp) throws IOException
     {//var obj= {'empNo':id,'empName':name,'position':pos};
-    	
+    	resp.setCharacterEncoding("utf-8");
     	String id = req.getParameter("idx");   
 
     	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
