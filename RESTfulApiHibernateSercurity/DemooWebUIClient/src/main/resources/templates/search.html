@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Demo Spring boot - hibernate - Thymeleaf</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}"/> 
+</head>
+<body class="container">
+	<th:block th:include="/menu"></th:block>
+	<div>
+		<h1>Tìm kiếm chuyến bay bạn đã đặt:</h1>
+	</div>
+	<hr/>
+	<div>
+		<input type="text" style="width: 234px;border-radius: 6px;" placeholder="Nhập số điện thoại..." id="txtsearch" />
+		<button class="btn btn-primary" type="button" onclick="showHint();" >Search</button>
+	</div>
+	<hr/>
+	<div>
+		<label>Danh sách các chuyến bay đã đặt:</label>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Từ</th>
+					<th>Đến</th>
+					<th>Khởi hành</th>
+					<th>Thời gian bay</th>
+					<th>Hãng</th>
+					<th>Giá vé</th>
+					<th>Trạng thái</th>
+				</tr>
+			</thead>
+			<tbody id="result1">
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript" th:src="@{/js/js.js}"></script>
+</body>
+</html>

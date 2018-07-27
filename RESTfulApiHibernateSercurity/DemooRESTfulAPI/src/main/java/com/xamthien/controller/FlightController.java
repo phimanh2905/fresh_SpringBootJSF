@@ -45,7 +45,7 @@ public class FlightController {
     private FlightSchedulesService flightSchedulesService;
  
    // trả về danh sách các chuyến bay
-    @RequestMapping(value = "/flights",method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE}) 
+    @RequestMapping(value = "/api/flights",method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE}) 
     @ResponseBody
     public List<FlightSchedules> getAll() {
         List<FlightSchedules> list = flightSchedulesService.getAllFlight();
@@ -54,7 +54,7 @@ public class FlightController {
     
     
     // trả về chuyến bay đc lấy theo id
-    @RequestMapping(value = "/flight/{fid}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})     
+    @RequestMapping(value = "/api/flight/{fid}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})     
     @ResponseBody
     public FlightSchedules getByID(@PathVariable("fid") String fid) {
     	FlightSchedules fl = flightSchedulesService.getFlightByID(Integer.parseInt(fid));
@@ -63,9 +63,9 @@ public class FlightController {
     
     
     // thêm mới chuyến bay
-    @RequestMapping(value = "/flight",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}) 
+    @RequestMapping(value = "/api/flight",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}) 
     @ResponseBody
-    public void addNew(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
+    public void addFlight(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
     	response.setCharacterEncoding("utf-8");
     	flightSchedulesService.insertFlightSchedules(fli);
         response.getWriter().println("Thêm chuyến bay thành công"); 
@@ -73,9 +73,9 @@ public class FlightController {
     
     
     // sửa thông tin chuyến bay
-    @RequestMapping(value = "/flight", method = RequestMethod.PUT,produces = { MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/api/flight", method = RequestMethod.PUT,produces = { MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public void  updateCur(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
+    public void  updateFlight(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
  
     	response.setCharacterEncoding("utf-8");
     	flightSchedulesService.updateFlightSchedules(fli);
@@ -84,9 +84,9 @@ public class FlightController {
     
     
     // xóa chuyến bay theo id
-    @RequestMapping(value = "/flight/{fid}",  method = RequestMethod.DELETE,produces = { MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/api/flight/{fid}",  method = RequestMethod.DELETE,produces = { MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public void deleteEmployee(@PathVariable("fid") String fid,HttpServletResponse response) throws IOException {
+    public void deleteFlight(@PathVariable("fid") String fid,HttpServletResponse response) throws IOException {
  
     	response.setCharacterEncoding("utf-8");
     	FlightSchedules fl = flightSchedulesService.getFlightByID(Integer.parseInt(fid));

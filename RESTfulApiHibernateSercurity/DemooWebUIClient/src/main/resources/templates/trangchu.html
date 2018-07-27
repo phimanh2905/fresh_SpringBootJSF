@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Demo Spring boot - hibernate - Thymeleaf</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}"/> 
+</head>
+<body class="container">
+	<th:block th:include="/menu"></th:block>
+	<div>
+		<h1>Danh sách chuyến bay:</h1>
+		<hr/>
+		<a class="btn btn-primary" th:href="@{/searchx}">Xem các chuyến bay đã đặt</a>
+	</div>
+	<br />
+	<font style="color:red;"><i><span th:text="${msg}"></span></i></font>
+	<br />
+
+	<table class="table table-bordered">
+		<tr>
+			<th>STT</th>
+			<th>Từ</th>
+			<th>Đến</th>
+			<th>Giờ khởi hành</th>
+			<th>Chi tiết</th>
+		</tr>
+		<th:block th:each="bk : ${list}">
+			<tr>
+				<td><p th:text="${bk.fid}"></p></td>
+				<td><p th:text="${bk.FFrom}"></p></td>
+				<td><p th:text="${bk.FTo}"></p></td>
+				<td><p th:text="${bk.departureTime}"></p></td>
+				
+				<!-- <td><a href="#" data-toggle="modal" data-target="#modal-edit" th:onclick="'pass_edit('+${bk.fid}+',\''+ ${bk.FFrom}+'\',\''+${bk.FTo}+'\',\''+ ${bk.departureTime}+'\','+ ${bk.arrivalTime}+',\''+${bk.airline.AName}+'\');'">View</a></td> -->
+				<td><a style="float:center;" th:href="@{/chitiet/id=}+${bk.fid}">View</a></td>
+				
+			</tr>
+		</th:block>
+	</table>
+	
+	  
+	  
+		<script type="text/javascript">
+			    
+			    function pass_edit(id,from,to,khoihanh,thoigianbay,hang) {
+			    	document.getElementById("eid").value=id;
+			    	document.getElementById("efrom").value=from;
+			    	document.getElementById("eto").value=to;
+			    	document.getElementById("edeparture").value=khoihanh;
+			    	document.getElementById("earrival").value=thoigianbay;
+			    	document.getElementById("eairline").value=hang;
+			    	document.getElementById("eprice").value="99K";
+			    	
+			    };
+			    function show_cus() {
+			    	 if( document.getElementById("hidethis").style.display=='none' ){
+			    	   document.getElementById("hidethis").style.display = '';
+			    	   //document.getElementById("showcus").style.display = 'none';
+			    	 }else{
+			    	   document.getElementById("hidethis").style.display = 'none';
+			    	   
+			    	 }
+			    	};
+			    
+			</script>
+</body>
+</html>

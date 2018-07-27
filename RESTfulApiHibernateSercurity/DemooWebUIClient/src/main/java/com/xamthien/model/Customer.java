@@ -22,12 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","reservations"})
 public class Customer implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private Integer cid;
-	private String cname;
+	private String CName;
 	private String phone;
 	private String email;
 	private Set<Reservation> reservations = new HashSet<Reservation>(0);
@@ -35,14 +31,14 @@ public class Customer implements java.io.Serializable {
 	public Customer() {
 	}
 
-	public Customer(String cname, String phone,String email) {
-		this.cname = cname;
+	public Customer(String CName, String phone,String email) {
+		this.CName = CName;
 		this.phone = phone;
 		this.email = email;
 	}
 
-	public Customer(String cname, String phone, String email, Set<Reservation> reservations) {
-		this.cname = cname;
+	public Customer(String CName, String phone, String email, Set<Reservation> reservations) {
+		this.CName = CName;
 		this.phone = phone;
 		this.email = email;
 		this.reservations = reservations;
@@ -62,11 +58,11 @@ public class Customer implements java.io.Serializable {
 
 	@Column(name = "C_NAME", nullable = false, length = 50)
 	public String getCName() {
-		return this.cname;
+		return this.CName;
 	}
 
 	public void setCName(String CName) {
-		this.cname = CName;
+		this.CName = CName;
 	}
 
 	@Column(name = "PHONE", nullable = false, length = 15)
@@ -87,14 +83,14 @@ public class Customer implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	public Set<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(Set<Reservation> reservations) {
-		this.reservations = reservations;
-	}
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+//	public Set<Reservation> getReservations() {
+//		return this.reservations;
+//	}
+//
+//	public void setReservations(Set<Reservation> reservations) {
+//		this.reservations = reservations;
+//	}
 //
 //	@Override
 //	public String toString() {
