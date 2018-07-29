@@ -22,13 +22,25 @@ Session session;
         return que.list();
     }
 
-    public Customer getCustomerByID(int id) {
+    public Customer getCustomerByID(long id) {
     	Customer bk = null;
          try {
         	 session = getSession();
              String hql = "from  Customer where cid = "+id;
              Query que = session.createQuery(hql);
              bk = (Customer)que.uniqueResult();
+         } catch (HibernateException e) {
+             e.printStackTrace();
+         }
+         return bk;
+    }
+    public Customer getCustomerByPhone(String phone) {
+    	Customer bk = null;
+         try {
+        	 session = getSession();
+             String hql = "from  Customer where phone = '"+phone+"' order by cid DESC";
+             Query que = session.createQuery(hql);
+             bk = (Customer)que.list().get(0);
          } catch (HibernateException e) {
              e.printStackTrace();
          }

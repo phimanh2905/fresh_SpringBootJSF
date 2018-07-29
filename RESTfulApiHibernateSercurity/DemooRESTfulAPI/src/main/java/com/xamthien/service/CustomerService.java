@@ -20,9 +20,12 @@ public class CustomerService {
         return CustomerDAO.getAllCustomer();
     }
 
-    public Customer geCustomerByID(int id) {
+    public Customer geCustomerByID(long id) {
          return CustomerDAO.getCustomerByID(id);
     }
+    public Customer geCustomerByPhone(String phone) {
+        return CustomerDAO.getCustomerByPhone(phone);
+   }
 
     public void insertCustomer(Customer sp) {
         this.CustomerDAO.insertCustomer(sp);

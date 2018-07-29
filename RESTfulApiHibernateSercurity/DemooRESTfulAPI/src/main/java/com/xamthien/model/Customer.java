@@ -25,7 +25,7 @@ public class Customer implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private Integer cid;
 	private String cname;
 	private String phone;
@@ -95,11 +95,11 @@ public class Customer implements java.io.Serializable {
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-//
-//	@Override
-//	public String toString() {
-//		return "Customer [cid=" + cid + ", CName=" + CName + ", phone=" + phone + ", email=" + email + "]";
-//	}
+
+	@Override
+	public String toString() {
+		return "Customer [cid=" + cid + ", CName=" + cname + ", phone=" + phone + ", email=" + email + "]";
+	}
 	
 
 }

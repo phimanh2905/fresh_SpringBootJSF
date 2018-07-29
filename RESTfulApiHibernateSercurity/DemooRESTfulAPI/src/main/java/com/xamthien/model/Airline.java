@@ -32,7 +32,11 @@ public class Airline implements java.io.Serializable {
 
 	public Airline() {
 	}
-
+	public Airline(Integer aid,String AName, String ANotes) {
+		this.AName = AName;
+		this.ANote = ANote;
+		this.aid = aid;
+	}
 	public Airline(String AName) {
 		this.AName = AName;
 	}
@@ -82,4 +86,9 @@ public class Airline implements java.io.Serializable {
 		this.flightScheduleses = flightScheduleses;
 	}
 
+	@Override
+	public String toString() {
+		return "Airline [aid=" + aid + ", AName=" + AName + ", ANote=" + ANote + "]";
+	}
+	
 }

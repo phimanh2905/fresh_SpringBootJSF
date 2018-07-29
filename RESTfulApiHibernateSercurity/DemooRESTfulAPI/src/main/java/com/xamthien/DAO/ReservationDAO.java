@@ -17,8 +17,8 @@ public class ReservationDAO extends ModelDAO {
 Session session;
 	
     @SuppressWarnings("unchecked")
-    public List<Reservation> getReservationByPhone(String phone) {
-    	String hql = "FROM Reservation r where r.customer.phone='"+phone+"' and r.dateOfReservation <= r.flightSchedules.departureTime";
+    public List<Reservation> getReservationByPhone(String phone) { 
+    	String hql = "FROM Reservation r where r.customer.phone='"+phone+"'"; // and r.dateOfReservation <= r.flightSchedules.departureTime
     	session = getSession();
 		Query que = session.createQuery(hql);
         return que.list();
@@ -30,7 +30,12 @@ Session session;
         session.save(sp);
     }
 
-    
+//    public void insertReservation(long cusID, long flightID,long pmID,long sttID,String date) {
+//    	String hql = "Insert into RESERVATION(RESERVATION(CID,DATE_OF_RESERVATION,FID,PID,RSID)) values ("+cusID+",'"+date+"',"+flightID+","+pmID+","+sttID+")";
+//    	session = getSession();
+//		Query que = session.createQuery(hql);
+//		que.executeUpdate();
+//    }
     public void updateReservation(Reservation sp) {
     	session = getSession();
         session.update(sp);

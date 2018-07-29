@@ -146,4 +146,11 @@ public class FlightSchedules implements java.io.Serializable {
 		this.reservations = reservations;
 	}
 
+	@Override
+	public String toString() {
+		return "FlightSchedules [fid=" + fid + ", airline=" + airline + ", FFrom=" + FFrom + ", FTo=" + FTo
+				+ ", arrivalTime=" + arrivalTime + ", departureTime=" + departureTime + ", ortherDetails="
+				+ ortherDetails + ", reservations=" + reservations + "]";
+	}
+	
 }

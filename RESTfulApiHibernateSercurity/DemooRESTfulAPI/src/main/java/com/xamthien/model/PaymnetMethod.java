@@ -68,4 +68,9 @@ public class PaymnetMethod implements java.io.Serializable {
 		this.reservations = reservations;
 	}
 
+	@Override
+	public String toString() {
+		return "PaymnetMethod [pid=" + pid + ", PName=" + PName + "]";
+	}
+	 
 }

@@ -18,7 +18,7 @@ public class FlightSchedulesService {
         return FlightSchedulesDAO.getAllFlightSchedules();
     }
 
-    public FlightSchedules getFlightByID(int id) {
+    public FlightSchedules getFlightByID(long id) {
          return FlightSchedulesDAO.getFlightSchedulesByID(id);
     }
 

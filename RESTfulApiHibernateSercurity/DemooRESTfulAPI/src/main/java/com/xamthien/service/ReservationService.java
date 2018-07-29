@@ -1,5 +1,6 @@
 package com.xamthien.service;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,10 @@ public class ReservationService {
     public void insertReservation(Reservation sp) {
         this.ReservationDAO.insertReservation(sp);
     }
-
+//    public void insertReservationx(long cusID, long flightID,long pmID,long sttID,String date)
+//    {
+//    	this.ReservationDAO.insertReservation(cusID, flightID, pmID, sttID, date);
+//    }
     
     public void updateReservation(Reservation sp) {
         this.ReservationDAO.updateReservation(sp);

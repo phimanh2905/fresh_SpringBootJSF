@@ -65,8 +65,10 @@ public class FlightController {
     // thêm mới chuyến bay
     @RequestMapping(value = "/api/flight",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE}) 
     @ResponseBody
-    public void addFlight(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
+    public void addFlight(@RequestBody String json,HttpServletResponse response) throws IOException {
     	response.setCharacterEncoding("utf-8");
+    	ObjectMapper mapper = new ObjectMapper();
+    	FlightSchedules fli = mapper.readValue(json, FlightSchedules.class);
     	flightSchedulesService.insertFlightSchedules(fli);
         response.getWriter().println("Thêm chuyến bay thành công"); 
     }
@@ -75,9 +77,11 @@ public class FlightController {
     // sửa thông tin chuyến bay
     @RequestMapping(value = "/api/flight", method = RequestMethod.PUT,produces = { MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public void  updateFlight(@RequestBody FlightSchedules fli,HttpServletResponse response) throws IOException {
+    public void  updateFlight(@RequestBody String json,HttpServletResponse response) throws IOException {
  
     	response.setCharacterEncoding("utf-8");
+    	ObjectMapper mapper = new ObjectMapper();
+    	FlightSchedules fli = mapper.readValue(json, FlightSchedules.class);
     	flightSchedulesService.updateFlightSchedules(fli);
         response.getWriter().println("Sửa thông tin chuyến bay thành công"); 
     }

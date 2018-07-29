@@ -21,7 +21,7 @@ Session session;
 		Query que = session.createQuery(hql);
         return que.list();
     }
-    public PaymnetMethod getPaymnetMethodByID(int id) {
+    public PaymnetMethod getPaymnetMethodByID(long id) {
     	PaymnetMethod bk = null;
          try {
         	 session = getSession();

@@ -1,11 +1,6 @@
 package com.xamthien.controller;
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -21,48 +16,23 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONArray;
+
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xamthien.model.*;
-import com.xamthien.service.*;
-import com.xamthien.utils.WebUtils;
+import com.xamthien.utils.ParseJsonUtils;
 
 @Controller
 public class FlightController {
-	
-//	@Autowired
-//	private FlightSchedulesService flightSchedulesService;
-//	
-//	@Autowired
-//	private PaymentMethodService paymentMethodService;
-//	
-//	@Autowired
-//	private CustomerService customerService;
-//	
-//	@Autowired
-//	private ReservationStatusService statusService;
-//	
-//	@Autowired
-//	private ReservationService reservationService;
-//	
-//	@RequestMapping("/")
-//	public String listSach(Model model) {	
-//		model.addAttribute("list", flightSchedulesService.getAllFlight());
-//		return "trangchu";
-//	}
+	private final String domain = "http://192.168.11.105:8090";
+	//private final String domain = "http://192.188.88.119:8090";
 	//=========================================================================================================================================
 	@RequestMapping("/saveFlightBooking")
 	public String doSaveCustomer(HttpServletRequest req, Model model) throws IOException {
@@ -81,115 +51,77 @@ public class FlightController {
 				Customer cus = new Customer(cusname,cusphone,cusemail);
 				boolean check = saveCustomer(cus);
 				
-				FlightSchedules flight = getFlightByID(Integer.parseInt(flightID));
+				Customer cusf = getCustomerByPhone(cus.getPhone());
 				
-				PaymnetMethod pm = getpaymentMethodByID(Integer.parseInt(paymethodID));
+				int FlightID = Integer.parseInt(flightID);
+				
+				int PayID = Integer.parseInt(paymethodID);
 				
 				
-//				if(check==false)
-//				{
-//					msg = "Đặt vé không thành công.";
-//				}
-//				else
-//				{
-//					ReservationStatus stt= new ReservationStatus();
-//					if(stk==null || stk.trim().equals(""))
-//					{
-//						stt = getStatusByID(1);
-//					}
-//					else
-//					{
-//						stt = getStatusByID(2);
-//					}
-//					System.out.println(stt.getRsName());
-//					
-//					Date now = new Date();
-//					
-//					Reservation res = new Reservation(cus,flight,pm,stt,now);
-//					check = saveReservation(res);
-//					if(check)
-//					{
-//						msg = "Đặt vé thành công.";
-//					}
-//					else
-//					{
-//						msg = "Đặt vé không thành công.";
-//					}
-//				}
-//				model.addAttribute("msg", msg);
-//				model.addAttribute("list", getLstFlight(model));
-//			}
-//			else
-//			{
-//				throw new Exception();
-//			}
+				if(check==false)
+				{
+					msg = "Đặt vé không thành công.";
+				}
+				else
+				{
+					int SttID=0;
+					if(stk==null || stk.trim().equals(""))
+					{
+						SttID = 1;
+					}
+					else
+					{
+						SttID = 2;
+					}
+					
+					
+					Date now = new Date();
+					
+					//Reservation res = new Reservation(cusf,flight,pm,stt,now);
+					check = saveReservation(cusf.getCid(),FlightID,PayID,SttID,now.getTime());
+					if(check)
+					{
+						msg = "Đặt vé thành công.";
+					}
+					else
+					{
+						msg = "Đặt vé không thành công.";
+					}
+				}
+				
+				//model.addAttribute("list", getLstFlight(model,msg));
+
 		}
 		catch (Exception e)
 		{
-			msg = "Đặt vé không thành công."+e;
-//			model.addAttribute("msg", msg);
-//			model.addAttribute("list", getLstFlight(model));
+			//msg = "Đặt vé không thành công."+e;
+			//model.addAttribute("list", getLstFlight(model,msg));
 		}
 		return "redirect:/index"; 
+		//return "trangchu";
+	}
+	//===================
+	public Customer getCustomerByPhone(String phone) throws IOException
+	{
+		String Jsonpath = domain+"/api/customer/"+phone;
+		Customer cus = new Customer();
+        cus = (Customer) new ParseJsonUtils().get(Jsonpath, cus);
+        return cus;
 	}
 	//===================
 	public PaymnetMethod getpaymentMethodByID(int id) throws IOException
     {
-		URL website = new URL("http://192.188.88.119:8090/api/paymentmethod/"+id);
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        PaymnetMethod pm =null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	pm = mapper.readValue(stringBuilder.toString(), PaymnetMethod.class);
-    		
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+		String Jsonpath = domain+"/api/paymentmethod/"+id;
+        PaymnetMethod pm = new PaymnetMethod();
+        pm = (PaymnetMethod) new ParseJsonUtils().get(Jsonpath, pm);
         return pm;
     }
 	//======================
 	public ReservationStatus getStatusByID(int id) throws IOException
     {
-		URL website = new URL("http://192.188.88.119:8090/api/reservation_status/"+id);
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        ReservationStatus stt =null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	stt = mapper.readValue(stringBuilder.toString(), ReservationStatus.class);
-    		
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+		String Jsonpath = domain+"/api/reservation_status/"+id;
+        ReservationStatus stt = new ReservationStatus();
+        stt = (ReservationStatus) new ParseJsonUtils().get(Jsonpath, stt);
         return stt;
     }
 	//==========================================
@@ -205,7 +137,8 @@ public class FlightController {
     	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
     	try {
-    	    HttpPost request = new HttpPost("http://192.188.88.119:8090/api/customer");
+    	    //HttpPost request = new HttpPost(domain+"/api/customer");
+    		HttpPost request = new HttpPost(domain+"/api/customer");
     	    StringEntity params = new StringEntity(json.toString());
     	    request.addHeader("content-type", "application/json");
     	    request.setEntity(params);
@@ -218,21 +151,27 @@ public class FlightController {
     	}
     	return ckeck;
     }
-	public boolean saveReservation(Reservation res) throws IOException
+	public boolean saveReservation(int CustomerID,int FlightID,int PayID,int SttID,long date) throws IOException
     {
 		boolean ckeck = true;
 		JSONObject json = new JSONObject();
     	 
-    	json.put("customer", res.getCustomer());    
-    	json.put("flightSchedules", res.getFlightSchedules());    
-    	json.put("paymnetMethod", res.getPaymnetMethod());   
-    	json.put("reservationStatus", res.getReservationStatus());
-    	json.put("dateOfReservation", res.getDateOfReservation());
+//    	json.put("customer",new ParseJsonUtils().toJsonString(res.getCustomer()));    
+//    	json.put("flightSchedules", new ParseJsonUtils().toJsonString(res.getFlightSchedules()));    
+//    	json.put("paymnetMethod", new ParseJsonUtils().toJsonString(res.getPaymnetMethod()));   
+//    	json.put("reservationStatus", new ParseJsonUtils().toJsonString(res.getReservationStatus()));
+    	
+    	json.put("customerID",CustomerID);    
+    	json.put("flightSchedulesID", FlightID);    
+    	json.put("paymnetMethodID", PayID);   
+    	json.put("reservationStatusID", SttID);
+    	json.put("dateOfReservation", date);
 
     	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
     	try {
-    	    HttpPost request = new HttpPost("http://192.188.88.119:8090/api/reservation");
+    	    //HttpPost request = new HttpPost(domain+"/api/reservation");
+    		HttpPost request = new HttpPost(domain+"/api/reservation");
     	    StringEntity params = new StringEntity(json.toString());
     	    request.addHeader("content-type", "application/json");
     	    request.setEntity(params);
@@ -289,49 +228,29 @@ public class FlightController {
 	}
 	public List<Reservation> searchReservationByPhone(String phone) throws IOException
     {
-		URL website = new URL("http://192.188.88.119:8090/api/reservation_p/"+phone);
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        List<Reservation> lst = null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, Reservation.class);
-        	lst = mapper.readValue(stringBuilder.toString(), type);
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+        String Jsonpath = domain+"/api/reservation_p/"+phone;
+        List<Reservation> lst = (List<Reservation>) (Object) new ParseJsonUtils().getLst(Jsonpath, new Reservation());
 		//resp.getWriter().println("xxx");
         return lst;
     }
 	//============================================================================================================================================
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String loginPage(Model model) {
-//    	
-//        return "loginPage";
-//    }
-//	@RequestMapping(value = "/manager/flight", method = RequestMethod.GET)
-//    public String xxx(Model model,Principal principal,HttpSession session) {
-//		String userName = principal.getName();
-//        session.setAttribute("userName", userName);
-//
-//		model.addAttribute("list", flightSchedulesService.getAllFlight());
-//		model.addAttribute("newflight", new FlightSchedules());
-//        return "chuyenbay";
-//    }
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(Model model) {
+    	
+        return "loginPage";
+    }
+	@RequestMapping(value = "/manager/flight", method = RequestMethod.GET)
+    public String xxx(Model model,Principal principal,HttpSession session) throws IOException {
+		String userName = principal.getName();
+        session.setAttribute("userName", userName);
+        
+        
+        String Jsonpath = domain+"/api/flights";
+        List<FlightSchedules> lst = (List<FlightSchedules>) (Object) new ParseJsonUtils().getLst(Jsonpath, new FlightSchedules());
+		model.addAttribute("list", lst);
+		model.addAttribute("newflight", new FlightSchedules());
+        return "chuyenbay";
+    }
 	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal,HttpSession session) {
@@ -348,117 +267,95 @@ public class FlightController {
  
         return "403Page";
     }
-//	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-//    public String logoutSuccessfulPage(Model model) {
-//		model.addAttribute("list", flightSchedulesService.getAllFlight());
-//		return "trangchu";
-//    }
+	@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    public String logoutSuccessfulPage(Model model) {
+		
+		return "redirect:/index";
+    }
 	
-	@RequestMapping("/testpost")
-    public void post(HttpServletRequest req,HttpServletResponse resp) throws IOException
-    {//var obj= {'empNo':id,'empName':name,'position':pos};
-		resp.setCharacterEncoding("utf-8");
-    	String id = req.getParameter("idx");
-    	String name = req.getParameter("namex");
-    	String pos = req.getParameter("posx");
-    	JSONObject json = new JSONObject();
-    	json.put("empNo", id);    
-    	json.put("empName", name);    
-    	json.put("position", pos);    
-
-    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-
-    	try {
-    	    HttpPost request = new HttpPost("http://192.188.88.119:8080/employee");
-    	    StringEntity params = new StringEntity(json.toString());
-    	    request.addHeader("content-type", "application/json");
-    	    request.setEntity(params);
-    	    httpClient.execute(request);
-    	    resp.getWriter().println("Thêm thành công");
-    	} catch (Exception ex) {
-    	    // handle exception here
-    	} finally {
-    	    httpClient.close();
-    	}
-    }
-	@RequestMapping("/testput")
-    public void put(HttpServletRequest req,HttpServletResponse resp) throws IOException
-    {//var obj= {'empNo':id,'empName':name,'position':pos};
-		resp.setCharacterEncoding("utf-8");
-    	String id = req.getParameter("idx");
-    	String name = req.getParameter("namex");
-    	String pos = req.getParameter("posx");
-    	JSONObject json = new JSONObject();
-    	json.put("empNo", id);    
-    	json.put("empName", name);    
-    	json.put("position", pos);    
-
-    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-
-    	try {
-    	    HttpPut request = new HttpPut("http://192.188.88.119:8080/employee/"+id);
-    	    StringEntity params = new StringEntity(json.toString());
-    	    request.addHeader("content-type", "application/json");
-    	    request.setEntity(params);
-    	    httpClient.execute(request);
-    	    resp.getWriter().println("Sửa thành công");
-    	} catch (Exception ex) {
-    	    // handle exception here
-    	} finally {
-    	    httpClient.close();
-    	}
-    }
-	@RequestMapping("/testdelete")
-    public void delete(HttpServletRequest req,HttpServletResponse resp) throws IOException
-    {//var obj= {'empNo':id,'empName':name,'position':pos};
-    	resp.setCharacterEncoding("utf-8");
-    	String id = req.getParameter("idx");   
-
-    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-
-    	try {
-    	    HttpDelete request = new HttpDelete("http://192.188.88.119:8080/employee/"+id);
-
-    	    request.addHeader("content-type", "application/json");
-    	    httpClient.execute(request);
-    	    resp.getWriter().println("Xóa thành công");
-    	} catch (Exception ex) {
-    		resp.getWriter().println("Xóa không thành công");
-    	} finally {
-    	    httpClient.close();
-    	}
-    }
+//	@RequestMapping("/testpost")
+//    public void post(HttpServletRequest req,HttpServletResponse resp) throws IOException
+//    {//var obj= {'empNo':id,'empName':name,'position':pos};
+//		resp.setCharacterEncoding("utf-8");
+//    	String id = req.getParameter("idx");
+//    	String name = req.getParameter("namex");
+//    	String pos = req.getParameter("posx");
+//    	JSONObject json = new JSONObject();
+//    	json.put("empNo", id);    
+//    	json.put("empName", name);    
+//    	json.put("position", pos);    
+//
+//    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+//
+//    	try {
+//    	    //HttpPost request = new HttpPost("http://192.188.88.119:8080/employee");
+//    		HttpPost request = new HttpPost("http://192.168.11.105:8080/employee");
+//    	    StringEntity params = new StringEntity(json.toString());
+//    	    request.addHeader("content-type", "application/json");
+//    	    request.setEntity(params);
+//    	    httpClient.execute(request);
+//    	    resp.getWriter().println("Thêm thành công");
+//    	} catch (Exception ex) {
+//    	    // handle exception here
+//    	} finally {
+//    	    httpClient.close();
+//    	}
+//    }
+//	@RequestMapping("/testput")
+//    public void put(HttpServletRequest req,HttpServletResponse resp) throws IOException
+//    {//var obj= {'empNo':id,'empName':name,'position':pos};
+//		resp.setCharacterEncoding("utf-8");
+//    	String id = req.getParameter("idx");
+//    	String name = req.getParameter("namex");
+//    	String pos = req.getParameter("posx");
+//    	JSONObject json = new JSONObject();
+//    	json.put("empNo", id);    
+//    	json.put("empName", name);    
+//    	json.put("position", pos);    
+//
+//    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+//
+//    	try {
+//    	    HttpPut request = new HttpPut("http://192.188.88.119:8080/employee/"+id);
+//    	    StringEntity params = new StringEntity(json.toString());
+//    	    request.addHeader("content-type", "application/json");
+//    	    request.setEntity(params);
+//    	    httpClient.execute(request);
+//    	    resp.getWriter().println("Sửa thành công");
+//    	} catch (Exception ex) {
+//    	    // handle exception here
+//    	} finally {
+//    	    httpClient.close();
+//    	}
+//    }
+//	@RequestMapping("/testdelete")
+//    public void delete(HttpServletRequest req,HttpServletResponse resp) throws IOException
+//    {//var obj= {'empNo':id,'empName':name,'position':pos};
+//    	resp.setCharacterEncoding("utf-8");
+//    	String id = req.getParameter("idx");   
+//
+//    	CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+//
+//    	try {
+//    	    HttpDelete request = new HttpDelete("http://192.188.88.119:8080/employee/"+id);
+//
+//    	    request.addHeader("content-type", "application/json");
+//    	    httpClient.execute(request);
+//    	    resp.getWriter().println("Xóa thành công");
+//    	} catch (Exception ex) {
+//    		resp.getWriter().println("Xóa không thành công");
+//    	} finally {
+//    	    httpClient.close();
+//    	}
+//    }
 	//=======================================================================================================================================
 	@RequestMapping(value = {"/","/index"})
     public String getLstFlight(Model model,String msg) throws IOException
-    {//var obj= {'empNo':id,'empName':name,'position':pos};
-		URL website = new URL("http://192.188.88.119:8090/api/flights");
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, FlightSchedules.class);
-        	List<FlightSchedules> lst = mapper.readValue(stringBuilder.toString(), type);
-        	model.addAttribute("msg", msg);
-        	model.addAttribute("list", lst);
-    		return "trangchu";
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+    {
+		String Jsonpath = domain+"/api/flights";
+        List<FlightSchedules> lst = (List<FlightSchedules>) (Object) new ParseJsonUtils().getLst(Jsonpath, new FlightSchedules());
+    	model.addAttribute("msg", msg);
+    	model.addAttribute("list", lst);
 		//resp.getWriter().println("xxx");
         return "trangchu";
     }
@@ -473,60 +370,15 @@ public class FlightController {
 	}
 	public FlightSchedules getFlightByID(int id) throws IOException
     {
-		URL website = new URL("http://192.188.88.119:8090/api/flight/"+id);
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        FlightSchedules flight =null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	flight = mapper.readValue(stringBuilder.toString(), FlightSchedules.class);
-    		
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+		String Jsonpath = domain+"/api/flight/"+id;
+        FlightSchedules flight = new FlightSchedules();
+        flight = (FlightSchedules) new ParseJsonUtils().get(Jsonpath, flight);
         return flight;
     }
 	public List<PaymnetMethod> getLstPaymentMethod() throws IOException
-    {//var obj= {'empNo':id,'empName':name,'position':pos};
-		URL website = new URL("http://192.188.88.119:8090/api/paymentmethods");
-        InputStream inputStream = null;
-        BufferedReader bufferedReader = null;
-        List<PaymnetMethod> lst = null;
-        try
-        {
-        	inputStream = website.openStream();
-        	bufferedReader = new BufferedReader(new  InputStreamReader(inputStream, Charset.forName("UTF-8")));
-        	
-        	StringBuilder stringBuilder = new StringBuilder();
-        	int cp;
-        	while ((cp = bufferedReader.read())!=-1)
-        	{
-        		stringBuilder.append((char)cp);
-        	}
-        	ObjectMapper mapper = new ObjectMapper();
-        	JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, PaymnetMethod.class);
-        	lst = mapper.readValue(stringBuilder.toString(), type);
-        }
-        catch(Exception e)
-        {
-        	inputStream.close();
-        	bufferedReader.close();
-        	
-        }
+    {
+		String Jsonpath = domain+"/api/paymentmethods";
+        List<PaymnetMethod> lst = (List<PaymnetMethod>) (Object) new ParseJsonUtils().getLst(Jsonpath, new PaymnetMethod());
 		
         return lst;
     }

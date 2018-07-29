@@ -42,6 +42,11 @@ public class Airline implements java.io.Serializable {
 		this.ANote = ANote;
 		this.flightScheduleses = flightScheduleses;
 	}
+	public Airline(Integer aid,String AName, String ANotes) {
+		this.AName = AName;
+		this.ANote = ANote;
+		this.aid = aid;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -82,4 +87,9 @@ public class Airline implements java.io.Serializable {
 		this.flightScheduleses = flightScheduleses;
 	}
 
+	@Override
+	public String toString() {
+		return "Airline [aid=" + aid + ", AName=" + AName + ", ANote=" + ANote + "]";
+	}
+	
 }

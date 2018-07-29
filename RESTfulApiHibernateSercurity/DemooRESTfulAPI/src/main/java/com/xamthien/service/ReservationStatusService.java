@@ -15,7 +15,7 @@ public class ReservationStatusService {
 	@Autowired
 	private PaymentStatusDAO statusDAO;
 
-    public ReservationStatus geStatusByID(int id) {
+    public ReservationStatus geStatusByID(long id) {
          return statusDAO.getReservationStatusByID(id);
     }
 

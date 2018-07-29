@@ -20,7 +20,7 @@ public class PaymentMethodService {
     public void insertPaymnetMethod(PaymnetMethod sp) {
         this.paymentMethodDAO.insertPaymnetMethod(sp);;
     }
-    public PaymnetMethod getPaymnetMethodByID(int ID) {
+    public PaymnetMethod getPaymnetMethodByID(long ID) {
        return paymentMethodDAO.getPaymnetMethodByID(ID);
     }
     

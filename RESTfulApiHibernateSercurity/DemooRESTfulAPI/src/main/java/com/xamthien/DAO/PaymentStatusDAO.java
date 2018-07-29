@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PaymentStatusDAO extends ModelDAO {
 	Session session;
 
-    public ReservationStatus getReservationStatusByID(int id) {
+    public ReservationStatus getReservationStatusByID(long id) {
     	ReservationStatus bk = null;
          try {
         	 session = getSession();

@@ -27,7 +27,7 @@ Session session;
 //		Query que = session.createQuery(sql);
 //        return que.list();
 //    }
-    public FlightSchedules getFlightSchedulesByID(int id) {
+    public FlightSchedules getFlightSchedulesByID(long id) {
     	FlightSchedules bk = null;
          try {
         	 session = getSession();

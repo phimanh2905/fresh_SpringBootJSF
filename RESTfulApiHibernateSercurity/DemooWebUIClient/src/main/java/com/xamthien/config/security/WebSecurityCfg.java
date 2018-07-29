@@ -46,7 +46,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 // 
         // Trang chỉ dành cho Member
-        http.authorizeRequests().antMatchers("/manager/flight").access("hasRole('ROLE_MEMBER')");
+        http.authorizeRequests().antMatchers("/manager/flight").access("hasRole('ROLE_USER')");
 // 
         // Ngoại lệ AccessDeniedException sẽ ném ra.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
@@ -55,7 +55,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and().formLogin()//
                 .loginProcessingUrl("/j_spring_security_check") // Servlet cua spring
                 .loginPage("/login")//
-                .defaultSuccessUrl("//manager/flight")//
+                .defaultSuccessUrl("/manager/flight")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")

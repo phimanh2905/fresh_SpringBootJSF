@@ -68,4 +68,9 @@ public class ReservationStatus implements java.io.Serializable {
 		this.reservations = reservations;
 	}
 
+	@Override
+	public String toString() {
+		return "ReservationStatus [rsid=" + rsid + ", rsName=" + rsName + "]";
+	}
+	
 }
