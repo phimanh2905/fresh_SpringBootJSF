@@ -88,18 +88,18 @@
 									          </div>
 									</div>
 									<div class='col-sm-12'>
-									     <label >SĐT Quý Khách :</label>
+									     <label >SĐT Quý Khách : <div style="color: red;" id="mes7"/></label>
 									           <div class="form-group">
 									                <div class="form-group" >
-									                     <input type="text" class="form-control"  required="required" name="cusphone"  />
+									                     <input type="text" class="form-control" id = "phoneid"  required="required" name="cusphone"  />
 									                </div>
 									          </div>
 									</div>
 									<div class='col-sm-12'>
-									     <label >Email Quý Khách :</label>
+									     <label >Email Quý Khách : <div style="color: red;" id="mes9"/></label>
 									           <div class="form-group">
 									                <div class="form-group" >
-									                     <input type="email" class="form-control" name="cusemail"   />
+									                     <input type="email" id = "emailid" class="form-control" name="cusemail"   />
 									                </div>
 									          </div>
 									</div>
@@ -152,7 +152,31 @@
 			    	document.getElementById("eid").value=id;
 			    	
 			    };
-			    
+			    document.getElementById("phoneid").addEventListener("blur",function(){
+				    var patt = /[0-9]{10,11}/;
+				    var result = patt.test(this.value);
+					if(this.value ===""){
+				    		document.getElementById("mes7").innerHTML = message ;
+						} else {
+							if(result == false){
+							    document.getElementById("mes7").innerHTML = "Định dạng số điện thoại không đúng!!!";
+							} else{
+							    document.getElementById("mes7").innerHTML = null;
+								}
+							}
+				});
+			    document.getElementById("emailid").addEventListener("blur",function(){
+					var patt = /^[a-zA-Z0-9_]+@[a-zA-Z]+/g;
+				    var result = patt.test(this.value);
+					if(this.value === ""){
+				    		document.getElementById("mes9").innerHTML = null ;						
+					} else
+					if(result == false){
+			    		document.getElementById("mes9").innerHTML = "Định dạng email không chính xác!!!";
+						} else {
+				    		document.getElementById("mes9").innerHTML = null ;
+							}			
+				});
 			</script>
 </body>
 </html>

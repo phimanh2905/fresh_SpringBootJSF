@@ -31,8 +31,8 @@ import com.xamthien.utils.ParseJsonUtils;
 
 @Controller
 public class FlightController {
-	private final String domain = "http://192.168.11.105:8090";
-	//private final String domain = "http://192.188.88.119:8090";
+	//private final String domain = "http://192.168.11.105:8090";
+	private final String domain = "http://192.188.88.119:8090";
 	//=========================================================================================================================================
 	@RequestMapping("/saveFlightBooking")
 	public String doSaveCustomer(HttpServletRequest req, Model model) throws IOException {
@@ -215,6 +215,7 @@ public class FlightController {
                 			+ "<td>"+hh.getFlightSchedules().getArrivalTime()+"</td>"
                 			+ "<td>"+hh.getFlightSchedules().getAirline().getAName()+"</td>"
                 			+ "<td>"+"99K"+"</td>"
+                			+ "<td>"+hh.getDateOfReservation()+"</td>"
                 			+ "<td>"+hh.getReservationStatus().getRsName()+"</td>"
                 			+ "</tr>";
                 	stt++;
