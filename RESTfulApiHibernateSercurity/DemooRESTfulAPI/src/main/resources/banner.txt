@@ -1,0 +1,2 @@
+String jsonPayload = "{\"message\" : \"%s\", \"timestamp\" : \"%s\" }";
+httpServletResponse.getOutputStream().println(String.format(jsonPayload, e.getMessage(), Calendar.getInstance().getTime()));
