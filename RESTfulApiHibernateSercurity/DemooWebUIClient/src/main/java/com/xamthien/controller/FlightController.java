@@ -89,16 +89,20 @@ public class FlightController {
 					}
 				}
 				
-				//model.addAttribute("list", getLstFlight(model,msg));
+				
 
 		}
 		catch (Exception e)
 		{
-			//msg = "Đặt vé không thành công."+e;
+			msg = "Đặt vé không thành công."+e;
 			//model.addAttribute("list", getLstFlight(model,msg));
 		}
-		return "redirect:/index"; 
-		//return "trangchu";
+		finally {
+			model.addAttribute("list", getAllLstFlight());
+			model.addAttribute("msg", msg);
+		}
+		//return "redirect:/index"; 
+		return "trangchu";
 	}
 	//===================
 	public Customer getCustomerByPhone(String phone) throws IOException
@@ -352,12 +356,18 @@ public class FlightController {
 	@RequestMapping(value = {"/","/index"})
     public String getLstFlight(Model model,String msg) throws IOException
     {
-		String Jsonpath = domain+"/api/flights";
-        List<FlightSchedules> lst = (List<FlightSchedules>) (Object) new ParseJsonUtils().getLst(Jsonpath, new FlightSchedules());
+        List<FlightSchedules> lst = getAllLstFlight();
     	model.addAttribute("msg", msg);
     	model.addAttribute("list", lst);
 		//resp.getWriter().println("xxx");
         return "trangchu";
+    }
+	public List<FlightSchedules> getAllLstFlight() throws IOException
+    {
+		String Jsonpath = domain+"/api/flights";
+        List<FlightSchedules> lst = (List<FlightSchedules>) (Object) new ParseJsonUtils().getLst(Jsonpath, new FlightSchedules());
+		//resp.getWriter().println("xxx");
+        return lst;
     }
 	//========================================================================================================================================
 	@RequestMapping("/chitiet/id={id}")
