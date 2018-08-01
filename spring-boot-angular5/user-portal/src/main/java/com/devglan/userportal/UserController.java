@@ -3,7 +3,10 @@ package com.devglan.userportal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -15,8 +18,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public User create(@RequestBody User user){
-        return userService.create(user);
+    public void create(@RequestBody User user,HttpServletResponse resp) throws IOException{
+        this.userService.create(user);
+        //resp.getWriter().println("Them thanh cong");
     }
 
     @GetMapping(path = {"/{id}"})
@@ -25,14 +29,15 @@ public class UserController {
     }
 
     @PutMapping(path = {"/{id}"})
-    public User update(@PathVariable("id") int id, @RequestBody User user){
+    public void update(@PathVariable("id") int id, @RequestBody User user,HttpServletResponse resp) throws IOException{
         user.setId(id);
-        return userService.update(user);
+        userService.update(user);
+        //resp.getWriter().println("Sua thanh cong");
     }
 
     @DeleteMapping(path ={"/{id}"})
-    public User delete(@PathVariable("id") int id) {
-        return userService.delete(id);
+    public void delete(@PathVariable("id") int id) {
+        this.userService.delete(id);
     }
 
     @GetMapping

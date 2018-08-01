@@ -1,16 +1,42 @@
 package com.devglan.userportal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface UserService {
+@Service
+public class UserService{
 
-    User create(User user);
+    @Autowired
+    private UserDAO userDAO;
 
-    User delete(int id);
+    
+    public void create(User user) {
+        this.userDAO.create(user);
+    }
 
-    List<User> findAll();
+    
+    public void delete(int id) {
+        User user = findById(id);
+        if(user != null){
+        	userDAO.delete(user);
+        }
+        
+    }
 
-    User findById(int id);
+    
+    public List<User> findAll() {
+        return userDAO.findAll();
+    }
 
-    User update(User user);
+    
+    public User findById(int id) {
+        return userDAO.findById(id);
+    }
+
+    
+    public void update(User user) {
+        this.userDAO.update(user);
+    }
 }
