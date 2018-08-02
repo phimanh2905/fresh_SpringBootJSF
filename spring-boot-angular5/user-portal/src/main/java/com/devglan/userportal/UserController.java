@@ -16,32 +16,31 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @PostMapping
-    public void create(@RequestBody User user,HttpServletResponse resp) throws IOException{
-        this.userService.create(user);
-        //resp.getWriter().println("Them thanh cong");
+    
+    @GetMapping
+    public List<User> findAll(){
+        return userService.findAll();
     }
-
+    
     @GetMapping(path = {"/{id}"})
     public User findOne(@PathVariable("id") int id){
         return userService.findById(id);
     }
-
-    @PutMapping(path = {"/{id}"})
-    public void update(@PathVariable("id") int id, @RequestBody User user,HttpServletResponse resp) throws IOException{
-        user.setId(id);
+    
+    @PostMapping
+    public void create(@RequestBody User user) throws IOException{
+        this.userService.create(user);
+    }
+    
+    @PutMapping
+    public void update( @RequestBody User user) throws IOException{
         userService.update(user);
-        //resp.getWriter().println("Sua thanh cong");
     }
 
     @DeleteMapping(path ={"/{id}"})
     public void delete(@PathVariable("id") int id) {
         this.userService.delete(id);
     }
-
-    @GetMapping
-    public List<User> findAll(){
-        return userService.findAll();
-    }
+    
+    
 }
