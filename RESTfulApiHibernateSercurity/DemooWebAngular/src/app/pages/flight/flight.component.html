@@ -1,0 +1,27 @@
+
+	<div class="col-md-6">
+		<h2> Danh sach chuyen bay</h2>
+		
+		<table class="table table-bordered">
+		  <thead>
+		  <tr>
+		    <th>STT</th>
+			<th>Từ</th>
+			<th>Đến</th>
+			<th>Giờ khởi hành</th>
+			<th>Chi tiết</th>
+		  </tr>
+		  </thead>
+		  <tbody>
+		  <tr *ngFor="let flight of flights">
+		  	<td>{{flight.fid}}</td>
+		    <td>{{flight.FFrom}}</td>
+		    <td>{{flight.FTo}}</td>
+		    <td>{{flight.departureTime}}</td>
+		    <td>
+		    	<a class="btn btn-info " routerLink="/chitiet/{{flight.fid}}">Chi tiet</a>
+		    </td>
+		  </tr>
+		  </tbody>
+		</table>
+	</div>
