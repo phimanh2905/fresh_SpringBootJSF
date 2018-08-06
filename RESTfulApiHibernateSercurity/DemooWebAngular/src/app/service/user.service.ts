@@ -12,8 +12,8 @@ const httpOptions = {
 export class UserService {
 
   constructor(private http:HttpClient) {}
-
-  private userUrl = 'http://192.188.88.119:8080/user-portal/users';
+  private userUrl = 'http://192.168.11.105:8080/users';
+  //private userUrl = 'http://192.188.88.119:8080/users';
   //private userUrl = '/api';
 
   public getUsers() {

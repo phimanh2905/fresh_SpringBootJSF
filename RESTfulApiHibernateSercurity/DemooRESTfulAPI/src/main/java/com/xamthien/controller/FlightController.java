@@ -23,6 +23,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ import com.xamthien.model.*;
 import com.xamthien.service.*;
 
 
- 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class FlightController {
  

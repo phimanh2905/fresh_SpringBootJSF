@@ -1,0 +1,28 @@
+
+	<div class="col-md-6">
+		<h2> Danh sach khach hàng</h2>
+		
+		<table class="table table-bordered">
+		  <thead>
+		  <tr>
+		    <th>STT</th>
+			<th>Tên</th>
+			<th>SĐT</th>
+			<th>Email</th>
+			<th>Chi tiết</th>
+		  </tr>
+		  </thead>
+		  <tbody>
+		  <tr *ngFor="let cus of customers">
+		  	<td>{{cus.cid}}</td>
+		    <td>{{cus.cname}}</td>
+		    <td>{{cus.phone}}</td>
+		    <td>{{cus.email}}</td>
+		    <td>
+		    	<!-- <a class="btn btn-info " routerLink="/chitiet/{{flight.fid}}">Chi tiet</a> -->
+		    </td>
+		  </tr>
+		  </tbody>
+		</table>
+	</div>
+	<br/>

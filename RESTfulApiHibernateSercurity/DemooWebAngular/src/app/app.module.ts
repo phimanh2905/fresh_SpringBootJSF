@@ -6,10 +6,14 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { AppRoutingModule } from './app.routing.module';
 import {UserService} from './service/user.service';
+import {CustomerService} from './service/customer.service';
+import {FlightService} from './service/flight.service';
+import {AppUserService} from './service/appuser.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AddUserComponent} from './user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { FlightComponent } from './pages/flight/flight.component';
+import { FlightsComponent } from './pages/flights/flights.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 @NgModule({
@@ -18,7 +22,8 @@ import { FlightComponent } from './pages/flight/flight.component';
     UserComponent,
     AddUserComponent,
     EditUserComponent,
-    FlightComponent
+    FlightsComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,7 @@ import { FlightComponent } from './pages/flight/flight.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [UserService , FlightService , AppUserService , CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
