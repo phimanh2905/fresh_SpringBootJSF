@@ -12,6 +12,7 @@ import { ContactsComponent } from './pages/contacts/contacts.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { RequestanappointmentComponent } from './pages/requestanappointment/requestanappointment.component';
 import { ServicesComponent } from './pages/services/services.component';
+import {ServicesNameService} from './service/servicesname.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ServicesComponent } from './pages/services/services.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ServicesNameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

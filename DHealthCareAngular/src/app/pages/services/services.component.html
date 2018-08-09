@@ -38,196 +38,29 @@
                                                                      data-atts="{&quot;limit&quot;:8,&quot;orderby&quot;:&quot;date&quot;,&quot;order&quot;:&quot;DESC&quot;,&quot;category&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;more&quot;:false,&quot;more_text&quot;:&quot;More info&quot;,&quot;more_url&quot;:&quot;&quot;,&quot;ajax_more&quot;:true,&quot;show_title&quot;:true,&quot;show_media&quot;:true,&quot;show_content&quot;:true,&quot;show_filters&quot;:false,&quot;use_space&quot;:true,&quot;use_rows_space&quot;:true,&quot;size&quot;:&quot;thumbnail&quot;,&quot;echo&quot;:false,&quot;title&quot;:&quot;&quot;,&quot;excerpt_length&quot;:&quot;32&quot;,&quot;wrap_class&quot;:&quot;services-wrap&quot;,&quot;col_xs&quot;:1,&quot;col_sm&quot;:2,&quot;col_md&quot;:4,&quot;col_xl&quot;:4,&quot;before_title&quot;:&quot;&lt;h2&gt;&quot;,&quot;after_title&quot;:&quot;&lt;\/h2&gt;&quot;,&quot;pager&quot;:false,&quot;paged&quot;:1,&quot;template&quot;:&quot;default.tmpl&quot;,&quot;item_class&quot;:&quot; services-item&quot;,&quot;container&quot;:&quot;&lt;div class=\&quot;services-listing cherry-services-row\&quot;&gt;%s&lt;\/div&gt;&quot;}"
                                                                      data-pages="1" data-page="1" data-cat="">
                                                                     <div class="services-listing cherry-services-row">
-                                                                        <div id="services-3002"
-                                                                             class=" services-item item-1 clearfix odd col-xs-12 col-sm-6 col-md-3 col-xl-3">
+                                                                    
+                                                                        <div *ngFor="let ser of services"
+                                                                             class=" services-item  clearfix odd col-xs-12 col-sm-6 col-md-3 col-xl-3">
                                                                             <div class="icon_wrap">
                                                                                 <div class="services-macros">
                                                                                     <div class="service-icon"><i
-                                                                                            class="fa fa-user-md"></i>
+                                                                                            class="{{ser.icon}}"></i>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="title_wrap">
                                                                                 <div class="services-macros"><a
-                                                                                        href="#">Prescriptions</a></div>
+                                                                                        href="{{ser.path}}">{{ser.name}}</a></div>
                                                                             </div>
                                                                             <div class="descr_wrap">
-                                                                                <div class="service-descr">Treating some
-                                                                                    psychological disorders and some
-                                                                                    psychological issues may require a
-                                                                                    combination of both therapy and some
-                                                                                    medication...
+                                                                                <div class="service-descr">{{ser.detail}}
                                                                                 </div>
                                                                             </div>
-                                                                            <a href="#" class="btn btn-primary">Read
+                                                                            <a href="{{ser.path}}" class="btn btn-primary">Read
                                                                                 more</a>
                                                                         </div><!--/.services-item-->
-                                                                        <div id="services-3001"
-                                                                             class=" services-item item-2 clearfix even col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-stethoscope"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Interventions</a></div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">If you want
-                                                                                    to make a difference for one of your
-                                                                                    friend's or family member's life
-                                                                                    now, a professional intervention is
-                                                                                    the answer!
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-848"
-                                                                             class=" services-item item-3 clearfix odd col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-home"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Family Therapy</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">With physical
-                                                                                    activity being a huge part of one's
-                                                                                    health and wellbeing, it can help
-                                                                                    you lose weight too!
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-847"
-                                                                             class=" services-item item-4 clearfix even col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-heart"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Anxiety Therapy</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">With no
-                                                                                    one-fits-it-all diet program
-                                                                                    existing, we will custom-tailor a
-                                                                                    dieting program just for you!
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-846"
-                                                                             class=" services-item item-5 clearfix odd col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-umbrella"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Depression Therapy</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">Behind any
-                                                                                    overweight issue, there's a health
-                                                                                    problem that's hiding. We want to
-                                                                                    diagnose and treat it!
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-845"
-                                                                             class=" services-item item-6 clearfix even col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-user-plus"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Personal Coaching</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">When it comes
-                                                                                    to weight loss treatments, children
-                                                                                    need an extra special attention
-                                                                                    given to them...
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-839"
-                                                                             class=" services-item item-7 clearfix odd col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-plus-circle"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Child Therapy</a></div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">Just as it
-                                                                                    goes for juniors, seniors need a
-                                                                                    special approach when it comes to
-                                                                                    weight loss solutions.
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-256"
-                                                                             class=" services-item item-8 clearfix even col-xs-12 col-sm-6 col-md-3 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-child"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Psychotherapy</a></div>
-                                                                            </div>
-                                                                            <div class="descr_wrap">
-                                                                                <div class="service-descr">Bariatric (or
-                                                                                    stomach-related) surgeries are the
-                                                                                    last option for fixing excessive
-                                                                                    weight issue.
-                                                                                </div>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-primary">Read
-                                                                                more</a>
-                                                                        </div><!--/.services-item--></div>
+                                                                        
+                                                                        </div>
                                                                 </div>
                                                             </div>
                                                         </div><!-- .tm_pb_cherry_services -->
