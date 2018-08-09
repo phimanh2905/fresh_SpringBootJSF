@@ -6,11 +6,10 @@ import { ServiceName } from '../models/servicesname.model';
 @Injectable()
 export class ServicesNameService {
 //  private services = SERVICE_ITEMS;
-    services: ServiceName[];
+  services: ServiceName[];
   constructor() {}
 
   public getAllServices() {
-
     const sv1 = new ServiceName('fa fa-user-md', 'Prescriptions', 'Treating some psychological disorders and some psychological issues may require a combination of both therapy and some medication...', '#');
     const sv2 = new ServiceName('fa fa-stethoscope','Interventions','If you want to make a difference for one of your friend\'s or family member\'s life now, a professional intervention is the answer!', '#');
     const sv3 = new ServiceName('fa fa-home','Family Therapy','With physical activity being a huge part of one\'s health and wellbeing, it can help you lose weight too!','#');
@@ -24,3 +23,27 @@ export class ServicesNameService {
     return this.services;
   }
  }
+
+
+// crud
+//getProductsFromData(): Product[] {
+//    console.log(this.pItems);
+//    return this.pItems
+//  }
+//
+//  addProduct(product: Product) {
+//    this.pItems.push(product);
+//    console.log(this.pItems);
+//  }
+//
+//  updateProduct(product: Product) {
+//    let index = findIndex(this.pItems, (p: Product) => {
+//      return p.id === product.id;
+//    });
+//    this.pItems[index] = product;
+//  }
+//
+//  deleteProduct(product: Product) {
+//    this.pItems.splice(this.pItems.indexOf(product), 1);
+//    console.log(this.pItems);
+//  }
