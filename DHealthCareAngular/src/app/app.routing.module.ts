@@ -10,6 +10,7 @@ import { RequestanappointmentComponent } from './pages/requestanappointment/requ
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'index', component: TrangchuComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'aboutus', component: AboutusComponent },
