@@ -1,0 +1,17 @@
+Trong bài học này tôi sẽ sử dụng một tài khoản Gmail để gửi tin nhắn, vì Gmail là một Mail-Server rất thông dụng. 
+Tuy nhiên để tài khoản Gmail của bạn có thể gửi email thông qua một ứng dụng Java bạn phải nói với Google cho phép điều đó. 
+OK, trước hết, trên trình duyệt bạn hãy đăng nhập vào tài khoản Gmail của bạn, sau đó truy cập vào địa chỉ dưới đây:
+https://www.google.com/settings/security/lesssecureapps
+
+
+
+
+
+
+
+
+
+
+
+
+=============================================================================================================================
