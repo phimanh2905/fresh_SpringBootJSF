@@ -14,7 +14,11 @@ export class ServicesComponent implements OnInit {
   constructor( private servicesnamex: ServicesNameService) { }
 
   ngOnInit() {
-    this.services = this.servicesnamex.getAllServices();
+//    this.services = this.servicesnamex.getAllServices();
+    this.servicesnamex.getAllServices()
+      .subscribe( data => {
+        this.services = data;
+      });
   }
 
 }
