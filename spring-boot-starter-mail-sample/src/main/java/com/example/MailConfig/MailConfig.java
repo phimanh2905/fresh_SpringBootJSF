@@ -38,6 +38,8 @@ public class MailConfig {
 	@Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setDefaultEncoding("UTF-8");
+        
         mailSender.setHost(sender_host);
         mailSender.setPort(sender_port);
  

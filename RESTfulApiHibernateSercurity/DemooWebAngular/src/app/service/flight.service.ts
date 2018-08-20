@@ -17,8 +17,8 @@ const httpOptions = {
 export class FlightService {
 
   constructor(private http: HttpClient) {}
-  private domain = "http://192.168.11.105:8090";
-  //private domain = 'http://192.188.88.119:8090';
+//  private domain = "http://192.168.11.105:8090";
+  private domain = 'http://192.188.88.119:8090';
   //==============================================
   public getAllLstFlight() {
     return this.http.get<FlightSchedules[]>(this.domain + '/api/flights');
