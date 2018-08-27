@@ -13,6 +13,9 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
 import { RequestanappointmentComponent } from './pages/requestanappointment/requestanappointment.component';
 import { ServicesComponent } from './pages/services/services.component';
 import {ServicesNameService} from './service/servicesname.service';
+import { MenuComponent } from './pages/menu/menu.component';
+import { FooterComponent } from './pages/footer/footer.component';
+
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import {ServicesNameService} from './service/servicesname.service';
     ContactsComponent,
     PagenotfoundComponent,
     RequestanappointmentComponent,
-    ServicesComponent
+    ServicesComponent,
+    MenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
