@@ -1,37 +1,28 @@
-import { Directive,Component, OnInit, Input, AfterViewInit } from '@angular/core';
-//import '../../../assets/js/super_guacamole_min.js';
-@Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
-})
+import { Component, OnInit } from '@angular/core';
 
-export class MenuComponent implements OnInit, AfterViewInit  {
-  loadAPI: Promise<any>;
-  constructor() {
-  this.loadAPI = new Promise((resolve) => {
-//        this.loadScript();
-        resolve(true);
-    });
-}
+@Component({
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css']
+})
+export class FooterComponent implements OnInit {
+
+  constructor() { }
 
   ngOnInit() {
-
   }
-  
-  ngAfterViewInit() {
+    ngAfterViewInit() {
     // ...
     setTimeout(() => {
       this.loadScript();
     }, 1000);
-    
+
   }
-  public loadScript() {  
-//    alert(1)      
-    var isFound = false;
-    var scripts = document.getElementsByTagName("script")
-    for (var i = 0; i < scripts.length; ++i) {
-        if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("loader")) {
+  public loadScript() {
+    let isFound = false;
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; ++i) {
+        if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
             isFound = true;
         }
     }
@@ -58,6 +49,7 @@ export class MenuComponent implements OnInit, AfterViewInit  {
           "assets/js/jquery.easypiechart.js",
           "assets/js/tm-hash.js",
           "assets/js/scripts(1).js",
+          "assets/js/swiper.jquery.min.js",
           "assets/js/jquery.fittext.js",
           "assets/js/hoverIntent.min.js",
           "assets/js/super_guacamole_min.js",
@@ -65,8 +57,6 @@ export class MenuComponent implements OnInit, AfterViewInit  {
           "assets/js/jquery.ui.totop.min.js",
           "assets/js/theme-script.js",
           "assets/js/wp-embed.min.js"
-          
-          
         ];
 
         for (var i = 0; i < dynamicScripts .length; i++) {
@@ -74,11 +64,12 @@ export class MenuComponent implements OnInit, AfterViewInit  {
             node.src = dynamicScripts [i];
             node.type = 'text/javascript';
             node.async = false;
-//            node.charset = 'utf-8';
+            node.charset = 'utf-8';
             let body = <HTMLDivElement> document.body;
             body.appendChild(node);
         }
 
     }
   }
+
 }
