@@ -56,7 +56,9 @@ export class FooterComponent implements OnInit {
           "assets/js/swiper(1).jquery.min.js",
           "assets/js/jquery.ui.totop.min.js",
           "assets/js/theme-script.js",
-          "assets/js/wp-embed.min.js"
+          "assets/js/wp-embed.min.js",
+          "assets/js/cherry-services.js",
+          "assets/js/public.min.js"
         ];
 
         for (var i = 0; i < dynamicScripts .length; i++) {

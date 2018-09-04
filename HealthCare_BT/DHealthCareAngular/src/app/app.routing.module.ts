@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'blog', component: BlogComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'request', component: RequestanappointmentComponent },
-  { path: 'notfound', component: ContactsComponent }
+  { path: 'notfound', component: PagenotfoundComponent }
 ];
 
 @NgModule({

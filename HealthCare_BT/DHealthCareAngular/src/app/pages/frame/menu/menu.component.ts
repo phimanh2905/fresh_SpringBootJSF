@@ -1,4 +1,6 @@
 import { Directive,Component, OnInit, Input } from '@angular/core';
+import {ServicesNameService} from '../../../service/servicesname.service';
+import { ServiceName } from '../../../models/servicesname.model';
 //import '../../../assets/js/super_guacamole_min.js';
 @Component({
   selector: 'app-menu',
@@ -7,12 +9,15 @@ import { Directive,Component, OnInit, Input } from '@angular/core';
 })
 
 export class MenuComponent implements OnInit {
-
-  constructor() {
-
-}
+  services: ServiceName[];
+  constructor( private servicesnamex: ServicesNameService) { }
 
   ngOnInit() {
+    this.services = this.servicesnamex.getAllServices();
+//    this.servicesnamex.getAllServices()
+//      .subscribe( data => {
+//        this.services = data;
+//      });
   }
 
 }

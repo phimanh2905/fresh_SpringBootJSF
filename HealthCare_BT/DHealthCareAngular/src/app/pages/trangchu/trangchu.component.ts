@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ServicesNameService} from '../../service/servicesname.service';
+import { ServiceName } from '../../models/servicesname.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,9 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./trangchu.component.css']
 })
 export class TrangchuComponent implements OnInit {
+  services: ServiceName[];
+  constructor(private router: Router, private servicesnamex: ServicesNameService) { }
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+    ngOnInit() {
+    this.services = this.servicesnamex.getAllServices();
+//    this.servicesnamex.getAllServices()
+//      .subscribe( data => {
+//        this.services = data;
+//      });
   }
 }

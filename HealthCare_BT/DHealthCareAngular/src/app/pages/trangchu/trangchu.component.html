@@ -311,65 +311,21 @@
                                                                      data-atts="{&quot;limit&quot;:4,&quot;orderby&quot;:&quot;date&quot;,&quot;order&quot;:&quot;DESC&quot;,&quot;category&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;more&quot;:true,&quot;more_text&quot;:&quot;More Services&quot;,&quot;more_url&quot;:&quot;&quot;,&quot;ajax_more&quot;:true,&quot;show_title&quot;:true,&quot;show_media&quot;:true,&quot;show_content&quot;:false,&quot;show_filters&quot;:false,&quot;use_space&quot;:true,&quot;use_rows_space&quot;:true,&quot;size&quot;:&quot;thumbnail&quot;,&quot;echo&quot;:false,&quot;title&quot;:&quot;&quot;,&quot;excerpt_length&quot;:&quot;0&quot;,&quot;wrap_class&quot;:&quot;services-wrap&quot;,&quot;col_xs&quot;:1,&quot;col_sm&quot;:2,&quot;col_md&quot;:2,&quot;col_xl&quot;:4,&quot;before_title&quot;:&quot;&lt;h2&gt;&quot;,&quot;after_title&quot;:&quot;&lt;\/h2&gt;&quot;,&quot;pager&quot;:false,&quot;paged&quot;:1,&quot;template&quot;:&quot;media-icon.tmpl&quot;,&quot;item_class&quot;:&quot; services-item&quot;,&quot;container&quot;:&quot;&lt;div class=\&quot;services-listing cherry-services-row\&quot;&gt;%s&lt;\/div&gt;&quot;}"
                                                                      data-pages="2" data-page="1" data-cat="">
                                                                     <div class="services-listing cherry-services-row">
-                                                                        <div id="services-3002"
+                                                                        <div id="services-3002" *ngFor="let ser of services| slice:0:4"
                                                                              class=" services-item item-1 clearfix odd col-xs-12 col-sm-6 col-md-6 col-xl-3">
                                                                             <div class="icon_wrap">
                                                                                 <div class="services-macros">
                                                                                     <div class="service-icon"><i
-                                                                                            class="fa fa-user-md"></i>
+                                                                                            class="{{ser.icon}}"></i>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="title_wrap">
                                                                                 <div class="services-macros"><a
-                                                                                        href="#">Prescriptions</a></div>
+                                                                                        href="{{ser.path}}">{{ser.name}}</a></div>
                                                                             </div>
                                                                         </div><!--/.services-item-->
-                                                                        <div id="services-3001"
-                                                                             class=" services-item item-2 clearfix even col-xs-12 col-sm-6 col-md-6 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-stethoscope"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="Services – TalkItThru.html">Interventions</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-848"
-                                                                             class=" services-item item-3 clearfix odd col-xs-12 col-sm-6 col-md-6 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-home"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Family Therapy</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div><!--/.services-item-->
-                                                                        <div id="services-847"
-                                                                             class=" services-item item-4 clearfix even col-xs-12 col-sm-6 col-md-6 col-xl-3">
-                                                                            <div class="icon_wrap">
-                                                                                <div class="services-macros">
-                                                                                    <div class="service-icon"><i
-                                                                                            class="fa fa-heart"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="title_wrap">
-                                                                                <div class="services-macros"><a
-                                                                                        href="#">Anxiety Therapy</a>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div><!--/.services-item--></div>
+                                                                        </div>
                                                                 </div>
                                                                 <div class="services-more-btn"><a
                                                                         href="/services"

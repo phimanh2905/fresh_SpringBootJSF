@@ -71,32 +71,13 @@
                             <li id="menu-item-2613"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-2613">
                                 <span class="sub-menu-toggle"></span><a href="/services">Services</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-3190"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3190">
-                                        <a href="#">Prescriptions</a></li>
-                                    <li id="menu-item-3191"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3191">
-                                        <a href="#">Interventions</a></li>
-                                    <li id="menu-item-3192"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3192">
-                                        <a href="#">Family Therapy</a></li>
-                                    <li id="menu-item-3193"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3193">
-                                        <a href="#">Anxiety Therapy</a></li>
-                                    <li id="menu-item-3194"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3194">
-                                        <a href="#">Depression Therapy</a></li>
-                                    <li id="menu-item-3195"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3195">
-                                        <a href="#">Personal Coaching</a></li>
-                                    <li id="menu-item-3196"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3196">
-                                        <a href="#">Child Therapy</a></li>
-                                    <li id="menu-item-3197"
-                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services menu-item-3197">
-                                        <a href="#">Psychotherapy</a></li>
+                                <ul class="sub-menu" >
+                                    <li *ngFor="let ser of services"
+                                        class="menu-item menu-item-type-post_type menu-item-object-cherry-services">
+                                        <a href="{{ser.path}}">{{ser.name}}</a></li>
+                                   
                                 </ul>
+                                
                             </li>
                             <li id="menu-item-1298"
                                 class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1298">
