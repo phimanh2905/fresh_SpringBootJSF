@@ -18,6 +18,7 @@ export class FooterComponent implements OnInit {
     }, 1000);
 
   }
+  
   public loadScript() {
     let isFound = false;
     const scripts = document.getElementsByTagName('script');
@@ -29,6 +30,7 @@ export class FooterComponent implements OnInit {
 
     if (/*!isFound*/ true ) {
         var dynamicScripts = [
+          
           "assets/js/cherry-js-core.min.js",
           "assets/js/spin.min.js",
           "assets/js/spin.jquery.js",
@@ -59,6 +61,8 @@ export class FooterComponent implements OnInit {
           "assets/js/wp-embed.min.js",
           "assets/js/cherry-services.js",
           "assets/js/public.min.js"
+
+          
         ];
 
         for (var i = 0; i < dynamicScripts .length; i++) {
